@@ -140,6 +140,24 @@ var controller = {
     updateArticle: (req, res) => {
 
         try {
+
+            //First we deleted the image of the folder path
+            var image = req.params.image;
+
+            if(image && image != null){
+
+                if(this.deleteImage(image) == false){
+          
+                          return res.status(500).send({
+                            status : 'error', 
+                            message : 'No se pudo actualizar el articulo vuelve a intentar!!!'
+                          });
+                   
+                }
+            }
+
+
+           // Second we updated the article searching for the id
             var params = req.body;
             var validatorTitle = !validator.isEmpty(params.title);
             var validatorContent = !validator.isEmpty(params.content);
@@ -190,7 +208,27 @@ var controller = {
     deleteArticle: (req, res) =>{
 
      try {
+        
 
+        //First we deleted the image of the folder path
+        var image = req.params.image;
+
+        if(image && image != null){
+
+            if(this.deleteImage(image) == false){
+
+                return res.status(500).send( {          
+                    status: 'error',
+                    message: 'Algo salio mal vuelve a intentarlo'
+                  });
+    
+            }
+
+        }
+
+
+
+        //Second one we deleted the article searching for the id
         var articleId = req.params.id;
 
         if(articleId && articleId != null){
@@ -198,19 +236,21 @@ var controller = {
             Article.findOneAndDelete({_id:articleId}, (err, articleDeleted) => {
 
 
-                if(err || articleDeleted){
+                if(err || !articleDeleted){
 
-                    return res.status(200).send( {          
-                      status: 'success',
-                      message: articleDeleted
-                    });
-
-                }else{
-
+              
                     return res.status(500).send( {          
                         status: 'error',
                         message: 'No se encontró el artículo, probablemente no exista en la base de datos!!!'
                       });
+                 
+                }else{
+
+                    return res.status(200).send( {          
+                        status: 'success',
+                        message: articleDeleted
+                      });
+  
 
                 }
 
@@ -262,10 +302,19 @@ var controller = {
     if(file_ext != 'png'  && file_split.file_ext != 'jpg' && file_ext != 'jpeg' && file_ext != '.gif'){
       
          fs.unlink(file_path, (err) =>{
+
+            if(err){
+                return res.status(200).send( {          
+                    status: 'error',
+                    message: 'La extensión de la imagen no es valida'
+                  });
+            }
+
             return res.status(200).send( {          
                 status: 'error',
                 message: 'La extensión de la imagen no es valida'
               });
+              
          } );
 
     }else{
@@ -325,6 +374,39 @@ var controller = {
       }
 
    });
+
+  },
+
+
+  deleteImage: (image_name) => {
+
+    try {
+
+        var image_name = this.image_name;
+        var path_file = './upload/articles/'+image_name
+    
+        fs.existsSync(path_file, (exists) => {
+           
+            if(exists){
+    
+              fs.unlink(path_file, (err) =>{
+                 
+                if(err){
+                   return false; 
+                }
+    
+              })  ;                         
+            
+            }
+    
+        });
+        
+    } catch (error) {
+        return false;
+    }
+
+   
+    return true;
 
   }
 
