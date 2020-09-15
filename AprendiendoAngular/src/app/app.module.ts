@@ -8,6 +8,9 @@ import {FormsModule} from '@angular/forms';
 //Para trabajar con el objeto HTTP
 import {HttpClientModule} from '@angular/common/http';
 
+//Importar el modulo de moment para las fechas
+import {MomentModule} from 'angular2-moment';
+
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -19,6 +22,8 @@ import { PaginaComponent } from './components/pagina/pagina.component';
 import { BlogComponent } from './components/blog/blog.component';
 import { PeliculasComponent } from './components/peliculas/peliculas.component';
 import { ErrorComponent } from './components/error/error.component';
+import { ArticlesComponent } from './components/articles/articles.component';
+import { ArticleComponent } from './components/article/article.component';
 
 @NgModule({
   declarations: [
@@ -32,13 +37,16 @@ import { ErrorComponent } from './components/error/error.component';
     PaginaComponent,
     BlogComponent,
     PeliculasComponent,
-    ErrorComponent
+    ErrorComponent,
+    ArticlesComponent,
+    ArticleComponent
   ],
   imports: [
     BrowserModule,
     routing,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MomentModule
   ],
   providers: [appRoutingProviders],
   bootstrap: [AppComponent]

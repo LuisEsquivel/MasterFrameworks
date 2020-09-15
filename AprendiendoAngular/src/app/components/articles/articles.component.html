@@ -1,0 +1,20 @@
+
+
+<div id="articles" >
+    <article class="article-item" id="article-template" *ngFor="let article of articles">
+        <div class="image-wrap">
+            <img src="https://unhabitatmejor.leroymerlin.es/sites/default/files/styles/header_category/public/2018-10/4%20paisaje%20macedonia.jpg?itok=AELknmF8" alt="Paisaje" />
+        </div>
+
+        <h2>{{article.title}}</h2>
+        <span class="date">
+           {{article.date | amLocale: 'es' | amTimeAgo}}
+        </span>
+        <a [routerLink]="['/blog/articulo' , article._id]">Leer más</a>
+
+        <div class="clearfix"></div>
+    </article>
+
+    <!--AÑADIR ARTICULOS VIA JS-->
+
+</div>

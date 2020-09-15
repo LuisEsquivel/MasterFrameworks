@@ -1,0 +1,30 @@
+<app-slider
+  [size]="'small'"
+  [nombre]="'Blog'"
+></app-slider>
+
+<div class="center">
+    <section id="content">
+
+
+        <article class="article-item article-detail" *ngFor="let article of article">
+            <div class="image-wrap">
+                <img src="https://unhabitatmejor.leroymerlin.es/sites/default/files/styles/header_category/public/2018-10/4%20paisaje%20macedonia.jpg?itok=AELknmF8" alt="Paisaje" />
+            </div>
+
+            <h1 class="subheader">{{article.title}}</h1>
+            <span class="date">
+                {{article.date | amLocale: 'es' | amTimeAgo}}
+            </span>
+            <p>
+               {{article.content}}
+            </p>
+
+            <div class="clearfix"></div>
+        </article>
+
+    </section>
+
+    <app-sidebar></app-sidebar>
+
+</div>

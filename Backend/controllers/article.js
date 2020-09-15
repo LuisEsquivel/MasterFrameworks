@@ -101,38 +101,33 @@ var controller = {
     getArticles: (req, res) => {
 
 
+      try {
+
         var query = Article.find({});
         var last = req.params.last;
+        var id = req.params.id;
+
+
+        if(id != "null"){
+         query = Article.find({ _id: id });
+        }
+        
          
-        if(last && last != undefined){
-            query.limit(5);
+        if(last && last != "null" && id == "null"){
+          query.limit(2);
         }
 
-        query.sort('-_id').exec( (err, articles) => {
+    
+        orderDescArticles(query);
+        
+      } catch (error) {
 
-            if(err){
-                return res.status(500).send({
-                    status : 'error', 
-                    message : 'Error al devolver los artículos!!!'
-            });
-           }
-
-           if(!articles){
-            return res.status(404).send({
-                status : 'error', 
-                message : 'No hay artículos!!!'
+        return res.status(404).send({
+          status : 'error', 
+          message : 'Algó salió mal vato!!!'
         });
-       }
 
-
-       return res.status(200).send({
-        status : 'success', 
-        articles
-      });
-
-
-    });//end query.sort
-
+      }
 
     },
 
@@ -408,8 +403,70 @@ var controller = {
    
     return true;
 
+  },
+
+
+
+  search: (req, res) =>{
+
+    try {
+
+      var search = req.params.search;
+
+      if(search && search != null){
+       var query = Article.find({ "/"+search+"/" });
+
+       orderDescArticles(query);
+
+      }
+      
+    } catch (error) {
+      return res.status(404).send( {          
+        status: 'error',
+        message: 'Algo salio mal al buscar articulos!!!'
+      });
+    }
+
   }
 
+
+  orderDescArticles(query){
+
+    try {
+      query.sort('-_id').exec( (err, articles) =>{ 
+
+        if(err){
+            return res.status(500).send({
+                status : 'error', 
+                message : 'Error al devolver los artículos!!!' + id
+        });
+       }
+  
+       if(!articles){
+        return res.status(404).send({
+            status : 'error', 
+            message : 'No hay artículos!!!'
+    });
+   }
+  
+  
+   return res.status(200).send({
+    status : 'success', 
+    articles
+  });
+  
+  
+  });//end query.sort
+  
+      
+    } catch (error) {
+      
+      return res.status(404).send({
+        status : 'error', 
+        message : 'Algo salió mal al ordenar los articulos !!!'
+    }
+
+  }
 
 
 }// end controller
