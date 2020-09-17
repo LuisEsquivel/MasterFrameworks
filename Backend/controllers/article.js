@@ -78,7 +78,7 @@ var controller = {
 
          // Devolver una respuesta
         return res.status(200).send({
-           message : 'success',
+           status : 'success',
            article : articleStored
         });
 
@@ -118,7 +118,30 @@ var controller = {
         }
 
     
-        orderDescArticles(query);
+        query.sort('-_id').exec( (err, articles) =>{ 
+
+          if(err){
+              return res.status(500).send({
+                  status : 'error', 
+                  message : 'Error al devolver los artículos!!!' + id
+          });
+         }
+    
+         if(!articles){
+          return res.status(404).send({
+              status : 'error', 
+              message : 'No hay artículos!!!'
+      });
+     }
+    
+    
+     return res.status(200).send({
+      status : 'success', 
+      articles
+    });
+    
+    
+    });//end query.sort
         
       } catch (error) {
 
@@ -414,26 +437,12 @@ var controller = {
       var search = req.params.search;
 
       if(search && search != null){
-       var query = Article.find({ "/"+search+"/" });
+       var query = Article.find({"$or": [
+         {"title" : {"$regex": search, "$options": "i" }},
+         {"content" : {"$regex": search, "$options": "i" }}
+       ]});
 
-       orderDescArticles(query);
-
-      }
-      
-    } catch (error) {
-      return res.status(404).send( {          
-        status: 'error',
-        message: 'Algo salio mal al buscar articulos!!!'
-      });
-    }
-
-  }
-
-
-  orderDescArticles(query){
-
-    try {
-      query.sort('-_id').exec( (err, articles) =>{ 
+       query.sort('-_id').exec( (err, articles) =>{ 
 
         if(err){
             return res.status(500).send({
@@ -452,22 +461,25 @@ var controller = {
   
    return res.status(200).send({
     status : 'success', 
-    articles
+    articles 
   });
   
   
   });//end query.sort
-  
+
+      }
       
     } catch (error) {
-      
-      return res.status(404).send({
-        status : 'error', 
-        message : 'Algo salió mal al ordenar los articulos !!!'
+      return res.status(404).send( {          
+        status: 'error',
+        message: 'Algo salio mal al buscar articulos!!!'
+      });
     }
 
   }
 
+
+  
 
 }// end controller
 

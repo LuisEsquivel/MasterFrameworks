@@ -1,0 +1,25 @@
+<app-slider
+  [size]="'small'"
+  [nombre]="'Búsqueda'"
+></app-slider>
+
+<div class="center">
+    <section id="content">
+
+        <h1 class="subheader" *ngIf="articles.length > 0">Artículos encontrados</h1>
+
+      <div *ngIf="articles.length > 0 else: no_hay_articulos">
+       <app-articles 
+       [articles]="articles"
+       ></app-articles>
+      </div>
+
+      <ng-template #no_hay_articulos>
+        <h1>No se encontraron artíclos</h1>
+      </ng-template>
+
+    </section>
+
+    <app-sidebar></app-sidebar>
+
+</div>

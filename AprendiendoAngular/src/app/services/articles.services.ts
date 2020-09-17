@@ -40,4 +40,20 @@ export class ArticleService {
     }
 
 
+    search(param : any):Observable<any>{
+
+        return this._httpClient.get(this.url+"search/"+param);
+
+    }
+
+
+    create(article) : Observable<any>{
+
+        let objeto = JSON.stringify(article);
+        let headers = new HttpHeaders().set("Content-Type" , "application/json")
+
+        return this._httpClient.post(this.url+"save/", objeto, {headers:headers});
+
+    }
+
 }

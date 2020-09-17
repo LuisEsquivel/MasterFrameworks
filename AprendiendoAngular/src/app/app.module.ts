@@ -24,6 +24,8 @@ import { PeliculasComponent } from './components/peliculas/peliculas.component';
 import { ErrorComponent } from './components/error/error.component';
 import { ArticlesComponent } from './components/articles/articles.component';
 import { ArticleComponent } from './components/article/article.component';
+import { SearchComponent } from './components/search/search.component';
+import { ArticleNewComponent } from './components/article-new/article-new.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { ArticleComponent } from './components/article/article.component';
     PeliculasComponent,
     ErrorComponent,
     ArticlesComponent,
-    ArticleComponent
+    ArticleComponent,
+    SearchComponent,
+    ArticleNewComponent
   ],
   imports: [
     BrowserModule,

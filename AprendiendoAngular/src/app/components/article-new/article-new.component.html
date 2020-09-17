@@ -1,0 +1,42 @@
+<app-slider
+[size]="'small'"
+[nombre]="'Crea Nuevo Artíclo de Freezer!!'"
+></app-slider>
+
+<div class="center">
+    <section id="content">
+
+        <h1 class="subheader">Crear</h1>
+
+        <form class="mid-form" #articleForm="ngForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="nombre">Titulo</label>
+                <input type="text" name="titulo" #titulo="ngModel" [(ngModel)]="article.title" required/>
+           
+                <small *ngIf="!titulo.valid && titulo.touched">
+                    El titulo es requerido
+                </small>
+
+            </div>
+
+            <div class="form-group">
+                <label for="apellidos">Contenido</label>
+                <textarea type="text" name="contenido" #contenido="ngModel"  [(ngModel)]="article.content" rows="3" required></textarea>
+           
+                <small *ngIf="!contenido.valid && contenido.touched">
+                    El contenido son requeridos
+                </small>
+
+            </div>
+
+            <div class="clearfix"></div>
+
+            <input type="submit" value="Enviar" class="btn btn-success" [disabled]="articleForm.invalid"/>
+
+       </form>
+
+    </section>
+
+    <app-sidebar></app-sidebar>
+
+</div>

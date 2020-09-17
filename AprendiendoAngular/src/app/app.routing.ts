@@ -12,6 +12,8 @@ import {FormularioComponent} from './components/formulario/formulario.component'
 import {PeliculasComponent} from './components/peliculas/peliculas.component';
 import {PaginaComponent} from './components/pagina/pagina.component';
 import {ArticleComponent} from './components/article/article.component';
+import {SearchComponent} from './components/search/search.component';
+import {ArticleNewComponent} from './components/article-new/article-new.component';
 
 //Ruta de error debe de ser la última siempre
 import {ErrorComponent} from './components/error/error.component';
@@ -28,6 +30,8 @@ const appRoutes: Routes =[
    {path : 'peliculas', component:PeliculasComponent},
    {path : 'pagina-de-pruebas', component:PaginaComponent},
    {path : 'pagina-de-pruebas/:nombre/:apellidos', component:PaginaComponent},
+   {path : 'buscar/:search', component: SearchComponent},
+   {path : 'crear-articulo', component : ArticleNewComponent},
 
    //Ruta de error debe de ser la última siempre
    {path : '**', component:ErrorComponent}

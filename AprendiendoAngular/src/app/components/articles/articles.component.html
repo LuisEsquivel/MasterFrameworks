@@ -10,6 +10,10 @@
         <span class="date">
            {{article.date | amLocale: 'es' | amTimeAgo}}
         </span>
+
+        <div>
+            {{article.content.toString().substring(0, 12) + "..."}}
+        </div>
         <a [routerLink]="['/blog/articulo' , article._id]">Leer más</a>
 
         <div class="clearfix"></div>
