@@ -20,6 +20,10 @@
                {{article.content}}
             </p>
 
+
+            <button class="btn btn-warning" [routerLink]="['/actualizar-articulo/' , article._id]">Editar</button>
+            <button class="btn btn-danger" (click)="Delete()">Eliminar</button>
+
             <div class="clearfix"></div>
         </article>
 

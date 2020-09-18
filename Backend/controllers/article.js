@@ -159,6 +159,7 @@ var controller = {
 
         try {
 
+          /*
             //First we deleted the image of the folder path
             var image = req.params.image;
 
@@ -174,19 +175,26 @@ var controller = {
                 }
             }
 
+            */
+
 
            // Second we updated the article searching for the id
             var params = req.body;
             var validatorTitle = !validator.isEmpty(params.title);
             var validatorContent = !validator.isEmpty(params.content);
-            var articleId = req.params.id;
+            var articleId= !validator.isEmpty(params._id);
 
-            if(validatorTitle && validatorContent){
+            
+
+            if(validatorTitle && validatorContent && articleId){
+
+              const filter = {_id: params._id};
+              const opts = { new: true, upsert: true };
+              console.log(filter);
                 
-              
-              Aritcle.findOneAndUpdate({_id: articleId}, params, {new:true}, (err, articleUpdated) =>{
+              Article.findOneAndUpdate(filter, params, opts ,function (err, articleUpdated){
                  
-                 if(err || !articleUpdated){
+                 if(err ){ 
                     return res.status(500).send({
                         status : 'error', 
                         message : 'No se pudo actualizar el articulo !!!'
@@ -194,10 +202,11 @@ var controller = {
                  }else{
                     return res.status(200).send({
                         status : 'success', 
-                        articleUpdated
+                        message : 'Articulo Actualizado !!!',
+                        article : articleUpdated
                       });
                  }
-
+              
               } );
                 
 
@@ -213,8 +222,8 @@ var controller = {
         } catch (error) {
 
             return res.status(404).send({
-                status : 'success', 
-                articles
+                status : 'error',
+                message : 'Algo salió mal vato !!!'
               });
             
         }
@@ -228,6 +237,8 @@ var controller = {
      try {
         
 
+
+      /*
         //First we deleted the image of the folder path
         var image = req.params.image;
 
@@ -243,7 +254,7 @@ var controller = {
             }
 
         }
-
+      */
 
 
         //Second one we deleted the article searching for the id

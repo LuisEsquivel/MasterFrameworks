@@ -206,12 +206,24 @@ body {
    text-decoration: none;
    max-width: 120px;
    transition: 300ms all;
-   border: none;
+   border: solid transparent 3px;
+   border-radius: 3px;
    cursor:pointer;
+   display: inline-block;
+   margin-left: 10px;
 }
 
 .btn-success{
     background: rgb(23, 150, 19);
+}
+
+.btn-danger{
+    background: rgb(212, 33, 2);
+
+}
+
+.btn-warning{
+    background: rgb(216, 184, 3);
 }
 
 .btn-success:hover{

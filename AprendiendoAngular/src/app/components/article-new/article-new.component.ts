@@ -36,7 +36,6 @@ export class ArticleNewComponent implements OnInit {
     this.http.create(this.article).subscribe(
 
       response=>{
-        
         if(response.status == 'success'){
          swal("Mensaje", "¡Artículo Guardado!", "success");
          this.router.navigate(['/blog']);

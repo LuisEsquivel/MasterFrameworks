@@ -1,12 +1,12 @@
 <app-slider
 [size]="'small'"
-[nombre]="'Crea Nuevo Artíclo de Freezer!!'"
+[nombre]="'Edita El Artíclo de Freezer!!'"
 ></app-slider>
 
 <div class="center">
     <section id="content">
 
-        <h1 class="subheader">Crear</h1>
+        <h1 class="subheader">Editar Articulo</h1>
 
         <form class="mid-form" #articleForm="ngForm" (ngSubmit)="onSubmit()">
             <div class="form-group">
@@ -31,7 +31,7 @@
 
             <div class="clearfix"></div>
 
-            <input type="submit" value="Guardar" class="btn btn-success" [disabled]="articleForm.invalid"/>
+            <input type="submit" value="Actualizar" class="btn btn-success" [disabled]="articleForm.invalid"/>
 
        </form>
 

@@ -14,6 +14,7 @@ import {PaginaComponent} from './components/pagina/pagina.component';
 import {ArticleComponent} from './components/article/article.component';
 import {SearchComponent} from './components/search/search.component';
 import {ArticleNewComponent} from './components/article-new/article-new.component';
+import {ArticleUpdateComponent} from './components/article-update/article-update.component';
 
 //Ruta de error debe de ser la última siempre
 import {ErrorComponent} from './components/error/error.component';
@@ -32,6 +33,7 @@ const appRoutes: Routes =[
    {path : 'pagina-de-pruebas/:nombre/:apellidos', component:PaginaComponent},
    {path : 'buscar/:search', component: SearchComponent},
    {path : 'crear-articulo', component : ArticleNewComponent},
+   {path : 'actualizar-articulo/:id', component : ArticleUpdateComponent},
 
    //Ruta de error debe de ser la última siempre
    {path : '**', component:ErrorComponent}

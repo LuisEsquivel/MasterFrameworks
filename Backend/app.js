@@ -5,14 +5,19 @@
 //Cargar modulos de node para crear el servidor
 var express = require('express');
 var bodyParser = require('body-parser');
+var cors = require('cors');
 
 
 //Ejecutar express para poder trabajar con http
 var app = express();
 
+app.use(cors());
+
 // Cargar las rutas
 var article_routes = require('./routes/article');
 
+
+/*
 //cors configure
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -28,6 +33,7 @@ app.use((req, res, next) => {
         res.send();
     });
 });
+*/
 
 
 // Cargar middelware  (se cargan antes de las rutas)
