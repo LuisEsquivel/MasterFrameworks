@@ -59,7 +59,6 @@ var controller = {
         // Asignar valores
         article.title = params.title;
         article.content = params.content;
-        article.image = null;
 
         //Guardar el articulo
         article.save( (err, articleStored) => 

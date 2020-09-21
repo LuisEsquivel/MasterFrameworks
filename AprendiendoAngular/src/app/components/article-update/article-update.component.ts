@@ -40,7 +40,7 @@ export class ArticleUpdateComponent implements OnInit {
               this.article._id = response.articles[0]._id;
               this.article.title = response.articles[0].title;
               this.article.content = response.articles[0].content;
-              this.article.image = response.articles[0].image;
+              this.article.image = response.articles[0]._id+'.jpg';
             }else{
               this.article = null;
             }
