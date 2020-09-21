@@ -4,6 +4,7 @@ import { ArticleService } from '../../services/articles.services';
 import { Article } from '../../models/article';
 import { SweetAlert } from 'sweetalert/typings/core';
 const swal: SweetAlert = require('sweetalert');
+import {Global} from '../../services/global';
 
 @Component({
   selector: 'app-article',
@@ -15,6 +16,7 @@ const swal: SweetAlert = require('sweetalert');
 export class ArticleComponent implements OnInit {
 
   public article : Article[];
+  public url : string;
 
   constructor(
     private _articleService : ArticleService,
@@ -22,7 +24,7 @@ export class ArticleComponent implements OnInit {
     private _route : ActivatedRoute
 
 
-  ) { }
+  ) {this.url = Global.url; }
 
   ngOnInit(): void {
 

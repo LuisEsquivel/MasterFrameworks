@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Article } from '../../models/article';
+import { Global } from  '../../services/global';
 
 
 @Component({
@@ -9,9 +10,11 @@ import { Article } from '../../models/article';
 })
 export class ArticlesComponent implements OnInit {
 
+  public url : string;
+
   @Input() articles : Article[];
 
-  constructor() { }
+  constructor() { this.url= Global.url; }
 
   ngOnInit(): void {
   }

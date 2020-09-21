@@ -47,6 +47,7 @@ body {
     animation: latir infinite 5s linear;
 }
 
+
 @keyframes latir {
     0% {
         transform: scale(1, 1);
@@ -289,15 +290,15 @@ textarea{
 }
 
 .article-item{
-    width: 100%;
+    width: auto !important;
     border-bottom: 1px solid #eee;
     padding-bottom: 20px;
     padding-top: 20px;
-    text-align: left;
+    text-align: start !important;
 }
 
 .article-item .image-wrap {
-    width: 130px;
+    width: 25%;
     height: 130px;
     overflow:hidden;
     float:left;
@@ -306,8 +307,7 @@ textarea{
 }
 
 .article-item .image-wrap img{
-    height: 100%;
-    text-align: center;
+    object-fit: cover !important;
 }
 
 .article-item h2{
@@ -345,11 +345,11 @@ textarea{
     float:none;
     width:100%;
     height: 300px;
+    text-align: center !important;
 }
 
 .article-detail .image-wrap img{
-    width: 100%;
-    height: auto;
+    object-fit: contain !important;
 }
 
 .article-detail .subheader{

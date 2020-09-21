@@ -18,6 +18,8 @@ export class ArticleNewComponent implements OnInit {
 
 
   public article : Article;
+  public idImage : any;
+  public eventImageProp : any;
 
   constructor(private http:ArticleService, 
               private router : Router,
@@ -25,7 +27,7 @@ export class ArticleNewComponent implements OnInit {
              
               ) {
      this.article = new Article("", "", "", "", Date.now); 
-     
+     this.eventImageProp = null;
     }
 
   ngOnInit(): void {
@@ -33,11 +35,18 @@ export class ArticleNewComponent implements OnInit {
 
 
   onSubmit(){
+
     this.http.create(this.article).subscribe(
 
       response=>{
         if(response.status == 'success'){
          swal("Mensaje", "¡Artículo Guardado!", "success");
+         this.idImage = response.article._id;   
+
+         if(this.eventImageProp != null){
+          this.uploadImage(this.eventImageProp, response.article._id);
+         } 
+        
          this.router.navigate(['/blog']);
         }else{
         swal("Algo salió mal", "¡No se guardó el artículo!", "error");
@@ -45,6 +54,27 @@ export class ArticleNewComponent implements OnInit {
       },
       error=>{
         swal("Algo salió mal", "¡No se guardó el artículo!", "error");
+      }
+
+    )
+  }
+
+
+  eventImage(event){
+   this.eventImageProp = event;
+  }
+
+  uploadImage(event, id){
+
+    this.http.uploadImage(event,id).subscribe(
+      
+      response=>{
+         if(response.status == "error"){
+          swal("Algo salió mal", "¡No se guardó la imágen! RESPONSE " , "error");
+         }
+      },
+      error=>{
+        swal("Algo salió mal", "¡No se guardó la imágen! ERROR " , "error");
       }
 
     )

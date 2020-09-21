@@ -49,8 +49,6 @@ var controller = {
             });
         }
 
-
-
       
         if(validate_title && validate_content){
       
@@ -72,19 +70,36 @@ var controller = {
                 status : 'error',
                 message : 'El artículo no se ha guardado !!!'
                });
-           }  
 
 
+           } else{
 
-         // Devolver una respuesta
-        return res.status(200).send({
-           status : 'success',
-           article : articleStored
+
+            
+       //Buscar el articulo y actualizar la imágen  
+        Article.findOneAndUpdate( {_id:articleStored._id}, {image:articleStored._id+".jpg"}, {new:true}, (err, article) =>{
+          
+           if(err || !article){
+            return res.status(200).send( {          
+                status: 'error',
+                message: 'Error al guardar la imagen'
+              });
+           }
+
+            return res.status(200).send( {          
+                status: 'success',
+                article
+              });
+
         });
 
-        });
         
 
+         }
+
+
+        });//End article.save
+        
 
         }else{
                  return res.status(404).send({
@@ -159,33 +174,36 @@ var controller = {
 
         try {
 
-          /*
-            //First we deleted the image of the folder path
-            var image = req.params.image;
-
-            if(image && image != null){
-
-                if(this.deleteImage(image) == false){
-          
-                          return res.status(500).send({
-                            status : 'error', 
-                            message : 'No se pudo actualizar el articulo vuelve a intentar!!!'
-                          });
-                   
-                }
-            }
-
-            */
-
-
-           // Second we updated the article searching for the id
+           // we updated the article searching for the id
             var params = req.body;
             var validatorTitle = !validator.isEmpty(params.title);
             var validatorContent = !validator.isEmpty(params.content);
             var articleId= !validator.isEmpty(params._id);
 
-            
+            var image_name = articleId+'.jpg';
+            var path_file = './upload/articles/'+image_name
+      
+        
+            fs.exists(path_file, (exists) => {
+               
+                if(exists){
+        
+                  fs.unlink(path_file, (err) =>{
+                     
+                    if(err){
+                      return res.status(404).send( {          
+                        status: 'error',
+                        message: 'No se pudo eliminar el articulo !!!'
+                      });
+                    }
+        
+                  })  ;                         
+                
+                }
+        
+            });
 
+          
             if(validatorTitle && validatorContent && articleId){
 
               const filter = {_id: params._id};
@@ -235,30 +253,31 @@ var controller = {
     deleteArticle: (req, res) =>{
 
      try {
-        
 
-
-      /*
-        //First we deleted the image of the folder path
-        var image = req.params.image;
-
-        if(image && image != null){
-
-            if(this.deleteImage(image) == false){
-
-                return res.status(500).send( {          
-                    status: 'error',
-                    message: 'Algo salio mal vuelve a intentarlo'
-                  });
-    
-            }
-
-        }
-      */
-
-
-        //Second one we deleted the article searching for the id
+        // we deleted the article searching for the id
         var articleId = req.params.id;
+
+        var image_name = articleId+'.jpg';
+        var path_file = './upload/articles/'+image_name
+    
+        fs.exists(path_file, (exists) => {
+           
+            if(exists){
+    
+              fs.unlink(path_file, (err) =>{
+                 
+                if(err){
+                  return res.status(404).send( {          
+                    status: 'error',
+                    message: 'No se pudo eliminar el articulo !!!'
+                  });
+                }
+    
+              })  ;                         
+            
+            }
+    
+        });
 
         if(articleId && articleId != null){
 
@@ -305,137 +324,24 @@ var controller = {
     },
 
 
-  
-  upload: (req, res) => {
-
-  try {
-
-    var file_name = 'Imagen no subida';
-
-    if(!req.files){
-        return res.status(404).send( {          
-            status: 'error',
-            message: file_name
-          });
-    }
 
 
-    var file_path = req.files.files0.path;
-    var file_split = file_path.file_split('\\');
-    
-    file_name = file_split[2];
+  getImage:  (req, res) =>{
 
-    var extension_split = file_name.split('\.');
-    var file_ext = extension_split[1];
-
-    if(file_ext != 'png'  && file_split.file_ext != 'jpg' && file_ext != 'jpeg' && file_ext != '.gif'){
-      
-         fs.unlink(file_path, (err) =>{
-
-            if(err){
-                return res.status(200).send( {          
-                    status: 'error',
-                    message: 'La extensión de la imagen no es valida'
-                  });
-            }
-
-            return res.status(200).send( {          
-                status: 'error',
-                message: 'La extensión de la imagen no es valida'
-              });
-              
-         } );
-
-    }else{
-
-
-        //Buscar el articulo y actualizar la imágen
-        var articleId = req.params.id;
-        Article.findOneAndUpdate( {_id:articleId}, {image:file_name}, {new:true}, (err, articleUpdated) =>{
-          
-           if(err || !articleUpdated){
-            return res.status(200).send( {          
-                status: 'error',
-                message: 'Error al guardar la imagen'
-              });
-           }
-
-            return res.status(200).send( {          
-                status: 'success',
-                article: articleUpdated
-              });
-
-        });
-
-
-    }
-      
-  } catch (error) {
-
-    return res.status(404).send( {          
-        status: 'error',
-        message: 'Algo salio mal!!!'
-      });
-      
-  }
-
-
-  },
-
-
-
-  getImage: (req, res) =>{
-
+   var path_fileDefault = './upload/articles/sin_imagen.jpg';
    var file = req.params.image;
-   var path_file = './upload/articles/'+file
-
-   fs.existsSync(path_file, (exists) => {
+   var path_file = './upload/articles/'+file;
+   console.log(file);
+   fs.exists(path_file, (exists) => {
 
       if(exists){
+        return  res.sendFile(path.resolve(path_file));
 
-        return res.sendFile(path.resolve(path_file));
-
-      }else{
-        return res.status(404).send( {          
-            status: 'error',
-            message: 'La imagen no existe!!!'
-          });
+      }else{      
+          return  res.sendFile(path.resolve(path_fileDefault));     
       }
 
    });
-
-  },
-
-
-  deleteImage: (image_name) => {
-
-    try {
-
-        var image_name = this.image_name;
-        var path_file = './upload/articles/'+image_name
-    
-        fs.existsSync(path_file, (exists) => {
-           
-            if(exists){
-    
-              fs.unlink(path_file, (err) =>{
-                 
-                if(err){
-                   return false; 
-                }
-    
-              })  ;                         
-            
-            }
-    
-        });
-        
-    } catch (error) {
-        return false;
-    }
-
-   
-    return true;
 
   },
 

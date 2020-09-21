@@ -13,6 +13,9 @@ export class ArticleService {
 
     public url: string;
 
+    selectedFile: File = null;
+    fd = new FormData();
+
 
     constructor(private _httpClient: HttpClient) {
         this.url = Global.url;
@@ -70,5 +73,13 @@ export class ArticleService {
         return this._httpClient.delete(this.url+"article/"+id);
     }  
 
+    uploadImage(event, id): Observable<any>{
+
+        this.selectedFile = <File>event.target.files[0];
+        this.fd.append('file', this.selectedFile, id + ".jpg");
+
+        return this._httpClient.post(this.url+"article-image/", this.fd);
+  
+    }
 
 }

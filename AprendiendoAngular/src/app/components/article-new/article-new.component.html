@@ -8,7 +8,7 @@
 
         <h1 class="subheader">Crear</h1>
 
-        <form class="mid-form" #articleForm="ngForm" (ngSubmit)="onSubmit()">
+        <form class="mid-form" #articleForm="ngForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data" type="POST">
             <div class="form-group">
                 <label for="nombre">Titulo</label>
                 <input type="text" name="titulo" #titulo="ngModel" [(ngModel)]="article.title" required/>
@@ -27,6 +27,7 @@
                     El contenido son requeridos
                 </small>
 
+                <input type="file" accept="image/*"(change)="eventImage($event)">
             </div>
 
             <div class="clearfix"></div>

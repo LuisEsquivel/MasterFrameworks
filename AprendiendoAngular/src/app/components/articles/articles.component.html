@@ -3,7 +3,7 @@
 <div id="articles" >
     <article class="article-item" id="article-template" *ngFor="let article of articles">
         <div class="image-wrap">
-            <img src="https://unhabitatmejor.leroymerlin.es/sites/default/files/styles/header_category/public/2018-10/4%20paisaje%20macedonia.jpg?itok=AELknmF8" alt="Paisaje" />
+            <img src="{{url + 'get-image/' + article.image}}" alt="Paisaje" />
         </div>
 
         <h2>{{article.title}}</h2>
