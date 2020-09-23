@@ -14,7 +14,9 @@ export class ArticlesComponent implements OnInit {
 
   @Input() articles : Article[];
 
-  constructor() { this.url= Global.url; }
+  constructor() { 
+    var g = new Global();
+    this.url= g.url(); }
 
   ngOnInit(): void {
   }

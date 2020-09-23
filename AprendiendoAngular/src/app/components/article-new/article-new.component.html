@@ -9,6 +9,21 @@
         <h1 class="subheader">Crear</h1>
 
         <form class="mid-form" #articleForm="ngForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data" type="POST">
+           
+         <div class="form-group">   
+                      
+         <div class="article-detail">
+            <input type="file" accept="image/*" (change)="eventImage($event)" #InputFile>
+
+            <div (click)="eventImage(null); InputFile.value = ''" *ngIf="previewUrl">X</div>
+            <div class="image-wrap image-all" *ngIf="previewUrl">
+                <img src="{{previewUrl}}"/>                 
+            </div>     
+
+        </div>  
+        </div>
+
+
             <div class="form-group">
                 <label for="nombre">Titulo</label>
                 <input type="text" name="titulo" #titulo="ngModel" [(ngModel)]="article.title" required/>
@@ -26,8 +41,6 @@
                 <small *ngIf="!contenido.valid && contenido.touched">
                     El contenido son requeridos
                 </small>
-
-                <input type="file" accept="image/*"(change)="eventImage($event)">
             </div>
 
             <div class="clearfix"></div>

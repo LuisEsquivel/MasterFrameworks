@@ -18,7 +18,8 @@ export class ArticleService {
 
 
     constructor(private _httpClient: HttpClient) {
-        this.url = Global.url;
+        var g = new Global();
+        this.url = g.url();
     }
 
 

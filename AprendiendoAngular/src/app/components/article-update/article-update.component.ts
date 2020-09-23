@@ -5,6 +5,7 @@ import { ArticleService } from '../../services/articles.services';
 import { SweetAlert } from 'sweetalert/typings/core';
 import { stringify } from 'querystring';
 const swal: SweetAlert = require('sweetalert');
+import {Global} from '../../services/global';
 
 @Component({
   selector: 'app-article-update',
@@ -18,12 +19,18 @@ export class ArticleUpdateComponent implements OnInit {
   public article : Article;
   public eventImageProp : any;
 
+  public g : Global;
+
+  //preview image
+  public previewUrl: any = '';
+
   constructor(private http : ArticleService,
               private router :  Router,
               private route : ActivatedRoute     
              ) {
                   this.article = new Article('', '', '' ,'' , Date.now);
                   this.eventImageProp = null;
+                  this.g = new Global();
                }
 
   ngOnInit(): void {
@@ -86,9 +93,16 @@ export class ArticleUpdateComponent implements OnInit {
 
   }
 
-  eventImage(event){
-    this.eventImageProp = event;
+  async eventImage(event) {
+    this.previewUrl = null;
+    
+    if (event != null) {
+      this.eventImageProp = event;
+      this.previewUrl = await this.g.ImagePreview(event);
+    }
+
   }
+
 
   uploadImage(event, id){
 

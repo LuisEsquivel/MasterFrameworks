@@ -17,6 +17,7 @@ export class ArticleComponent implements OnInit {
 
   public article : Article[];
   public url : string;
+  
 
   constructor(
     private _articleService : ArticleService,
@@ -24,7 +25,9 @@ export class ArticleComponent implements OnInit {
     private _route : ActivatedRoute
 
 
-  ) {this.url = Global.url; }
+  ) {
+    var g = new Global();
+    this.url = g.url(); }
 
   ngOnInit(): void {
 
