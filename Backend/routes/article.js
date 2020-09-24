@@ -38,7 +38,10 @@ router.post('/datos-curso', ArticleController.datosCurso);
 router.post('/save', ArticleController.save);
 router.get('/articles', ArticleController.getArticles);
 router.get('/articles/:last/:id', ArticleController.getArticles);
+
 router.put('/article', ArticleController.updateArticle);
+router.put('/article/:update_image', ArticleController.updateArticle);
+
 router.delete('/article/:id', ArticleController.deleteArticle);
 
 router.post('/article-image', upload.single('file'), (req, res) => {  

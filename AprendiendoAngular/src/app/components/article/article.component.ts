@@ -27,7 +27,8 @@ export class ArticleComponent implements OnInit {
 
   ) {
     var g = new Global();
-    this.url = g.url(); }
+    this.url = g.url();
+   }
 
   ngOnInit(): void {
 

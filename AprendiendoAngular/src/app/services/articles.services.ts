@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Global } from './global';
 import { Article } from '../models/article';
+import { IfStmt } from '@angular/compiler';
 
 
 @Injectable()
@@ -61,11 +62,16 @@ export class ArticleService {
 
     }
 
-    update(article) : Observable<any>{
+    update(article, updateImage:boolean = false) : Observable<any>{
 
         let objeto = JSON.stringify(article);
         let headers = new HttpHeaders().set("Content-Type" , "application/json")
-        return this._httpClient.put(this.url+"article/", objeto, {headers : headers});
+       
+        if(updateImage){
+          return this._httpClient.put(this.url+"article/"+updateImage, objeto, {headers : headers});
+        }
+        
+        return this._httpClient.put(this.url+"article/"+false, objeto, {headers : headers});
 
     }
 
@@ -76,10 +82,13 @@ export class ArticleService {
 
     uploadImage(event, id): Observable<any>{
 
+        if(event != null){
+
         this.selectedFile = <File>event.target.files[0];
         this.fd.append('file', this.selectedFile, id + ".jpg");
-
         return this._httpClient.post(this.url+"article-image/", this.fd);
+
+        }
   
     }
 

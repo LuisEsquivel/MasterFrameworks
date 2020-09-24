@@ -10,16 +10,28 @@
 
         <form class="mid-form" #articleForm="ngForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data" type="POST">
           
-            <div class="form-group">   
-            <div class="article-detail">
-                <input type="file" accept="image/*" (change)="eventImage($event)" #InputFile>
-    
-                <div (click)="eventImage(null); InputFile.value = ''" *ngIf="previewUrl">X</div>
-                <div class="image-wrap image-all" *ngIf="previewUrl">
-                    <img src="{{g.url()+'get.image/'+article.image}}"/>                 
+        <div class="form-group">   
+
+          <input type="file" accept="image/*" (change)="eventImage($event);" >
+          <div (click)="eventImage(null); InputFile.value = ''; FirstImage = false;" *ngIf="previewUrl != null || FirstImage" >X</div>
+            
+          <div class="article-detail" *ngIf="previewUrl == null && FirstImage " >
+               
+                <div class="image-wrap image-all">
+                    <img src="{{g.url()+'get-image/'+article.image}}" />     
                 </div>     
     
             </div>  
+
+
+            <div class="article-detail" *ngIf="previewUrl != null">
+                
+                <div class="image-wrap image-all">
+                    <img src="{{previewUrl}}" />                 
+                </div>     
+    
+            </div>  
+            
         </div>  
           
           
