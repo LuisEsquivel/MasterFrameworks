@@ -23,6 +23,7 @@ export class ArticleUpdateComponent implements OnInit {
   //preview image
   public previewUrl: any = null;
   public FirstImage: any;
+  public urlImage : string;
 
   constructor(private http: ArticleService,
     private router: Router,
@@ -32,6 +33,7 @@ export class ArticleUpdateComponent implements OnInit {
     this.eventImageProp = null;
     this.g = new Global();
     this.FirstImage = true;
+    this.getImage();
   }
 
   ngOnInit(): void {
@@ -83,6 +85,7 @@ export class ArticleUpdateComponent implements OnInit {
       updateImage = true;
     }
 
+  
     this.http.update(this.article, updateImage).subscribe(
 
       response => {
@@ -138,4 +141,14 @@ export class ArticleUpdateComponent implements OnInit {
     )
   }
 
+
+  getImage(){
+    this.route.params.subscribe( params => {
+      var id = params['id'];
+      //se le pone ?+Math.random ya que el navegador guarda la imágen en 
+      // caché y no se actualiza al actualizar (valga la redundancia) la imágen
+      this.urlImage = this.g.url()+'get-image/'+id+'.jpg?'+Math.random();
+    } );
+    
+   }
 }

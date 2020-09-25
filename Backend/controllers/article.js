@@ -181,7 +181,7 @@ var controller = {
       var updateImage = req.params.update_image;
 
       // if we want update the image then delete the actual image
-      if (updateImage) {
+      if (updateImage == 'true') {
 
         var image_name = params._id + '.jpg';
         var path_file = './upload/articles/' + image_name;

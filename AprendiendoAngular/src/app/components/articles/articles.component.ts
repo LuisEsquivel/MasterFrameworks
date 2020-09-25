@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Article } from '../../models/article';
-import { Global } from  '../../services/global';
+import { Global } from '../../services/global';
 
 
 @Component({
@@ -10,15 +10,24 @@ import { Global } from  '../../services/global';
 })
 export class ArticlesComponent implements OnInit {
 
-  public url : string;
+  public url: string;
+  public urlImage: string;
 
-  @Input() articles : Article[];
+  @Input() articles: Article[];
 
-  constructor() { 
+  constructor() {
+
     var g = new Global();
-    this.url= g.url(); }
+    this.url = g.url();
+  }
 
   ngOnInit(): void {
   }
+
+
+  randomImageSuffix(){
+    return Math.random();
+  }
+   
 
 }

@@ -6,7 +6,7 @@
 <div class="center">
     <section id="content">
 
-        <h1 class="subheader">Página</h1>
+        <h1 class="subheader">Consumir placeholder</h1>
 
 
         <div *ngIf="nombre && apellidos">
@@ -16,8 +16,24 @@
         <button type="button" (click)="redireccion()">Ponme mi name</button>
 
 
+        <article class="article-item article-detail" *ngFor="let p of placeholder">
+
+
+            <h1 class="subheader">{{p.title}}</h1>
+           
+            <p style="color: gray;">
+               {{p.body}}
+            </p>
+
+            <div class="clearfix"></div>
+        </article>
+
+
+
     </section>
 
     <app-sidebar></app-sidebar>
 
 </div>
+
+

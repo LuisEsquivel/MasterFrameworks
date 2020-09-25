@@ -13,14 +13,15 @@ import { IfStmt } from '@angular/compiler';
 export class ArticleService {
 
     public url: string;
+    public g : Global;
 
     selectedFile: File = null;
     fd = new FormData();
-
+    
 
     constructor(private _httpClient: HttpClient) {
-        var g = new Global();
-        this.url = g.url();
+        this.g = new Global();
+        this.url = this.g.url();
     }
 
 
@@ -67,11 +68,7 @@ export class ArticleService {
         let objeto = JSON.stringify(article);
         let headers = new HttpHeaders().set("Content-Type" , "application/json")
        
-        if(updateImage){
-          return this._httpClient.put(this.url+"article/"+updateImage, objeto, {headers : headers});
-        }
-        
-        return this._httpClient.put(this.url+"article/"+false, objeto, {headers : headers});
+         return this._httpClient.put(this.url+"article/"+updateImage, objeto, {headers : headers});
 
     }
 
@@ -90,6 +87,11 @@ export class ArticleService {
 
         }
   
+    }
+
+
+    get(id: any = null): Observable<any>{
+      return   this._httpClient.get(this.g.placeholderurl())
     }
 
 }

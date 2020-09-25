@@ -15,17 +15,20 @@
           <input type="file" accept="image/*" (change)="eventImage($event);" >
           <div (click)="eventImage(null); InputFile.value = ''; FirstImage = false;" *ngIf="previewUrl != null || FirstImage" >X</div>
             
+
+          <div class="article-detail" *ngIf="previewUrl == null && !FirstImage" >
+           Sin imágen
+        </div>
+
           <div class="article-detail" *ngIf="previewUrl == null && FirstImage " >
-               
                 <div class="image-wrap image-all">
-                    <img src="{{g.url()+'get-image/'+article.image}}" />     
+                    <img src="{{urlImage}}" />     
                 </div>     
     
             </div>  
 
 
             <div class="article-detail" *ngIf="previewUrl != null">
-                
                 <div class="image-wrap image-all">
                     <img src="{{previewUrl}}" />                 
                 </div>     

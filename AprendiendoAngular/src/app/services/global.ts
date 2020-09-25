@@ -1,44 +1,50 @@
 
 
-export class Global{
+export class Global {
 
-    constructor() {
-        
-    }
+  constructor(
+  ) {
+  }
 
-    public url =  function() {
-        return 'http://localhost:3900/api/';
-    }
+  public url = function () {
+    return 'http://localhost:3900/api/';
+  }
 
-
-      ImagePreview = async function (event){
-
-        var fileData: File = <File>event.target.files[0];
-
-        if(fileData != null){
-
-            // Show preview 
-          var mimeType = fileData.type;
-          if (!mimeType.match('image.*')) {
-             return null;
-          }
-
-          //return response in resolve
-          return new Promise<any>((resolve) => {
-            var reader = new FileReader();
-            reader.readAsDataURL(fileData);
-            reader.onload =  function (_event) {
-            resolve(reader.result);
-         }
-
-        });
+  public placeholderurl = function () {
+    return 'https://jsonplaceholder.typicode.com/posts';
+  }
 
 
-        }//end if fileData
 
+  ImagePreview = async function (event) {
+
+    var fileData: File = <File>event.target.files[0];
+
+    if (fileData != null) {
+
+      // Show preview 
+      var mimeType = fileData.type;
+      if (!mimeType.match('image.*')) {
         return null;
-
       }
+
+      //return response in resolve
+      return new Promise<any>((resolve) => {
+        var reader = new FileReader();
+        reader.readAsDataURL(fileData);
+        reader.onload = function (_event) {
+          resolve(reader.result);
+        }
+
+      });
+
+
+    }//end if fileData
+
+    return null;
+
+  }
+
 
 }
 

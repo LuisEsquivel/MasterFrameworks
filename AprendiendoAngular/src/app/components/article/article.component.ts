@@ -5,6 +5,8 @@ import { Article } from '../../models/article';
 import { SweetAlert } from 'sweetalert/typings/core';
 const swal: SweetAlert = require('sweetalert');
 import {Global} from '../../services/global';
+import { timingSafeEqual } from 'crypto';
+import { threadId } from 'worker_threads';
 
 @Component({
   selector: 'app-article',
@@ -17,17 +19,16 @@ export class ArticleComponent implements OnInit {
 
   public article : Article[];
   public url : string;
-  
+  public urlImage : string;
 
   constructor(
     private _articleService : ArticleService,
     private _router : Router,
     private _route : ActivatedRoute
-
-
   ) {
     var g = new Global();
     this.url = g.url();
+    this.getImage();
    }
 
   ngOnInit(): void {
@@ -36,7 +37,6 @@ export class ArticleComponent implements OnInit {
 
        var id = params['id'];
       
-
        this._articleService.getArticles(false, id).subscribe( 
 
         response=>{
@@ -44,7 +44,7 @@ export class ArticleComponent implements OnInit {
           if(response.articles){
            
             this.article = response.articles;
-
+    
           }else{
             this.article = [];
           }
@@ -60,6 +60,7 @@ export class ArticleComponent implements OnInit {
      
 
     } );
+
 
   }
 
@@ -100,6 +101,19 @@ export class ArticleComponent implements OnInit {
     });
 
   }
+
+
+
+  getImage(){
+    this._route.params.subscribe( params => {
+      var id = params['id'];
+      //se le pone ?+Math.random ya que el navegador guarda la imágen en 
+      // caché y no se actualiza al actualizar (valga la redundancia) la imágen
+      this.urlImage = this.url+'get-image/'+id+'.jpg?'+Math.random();
+    } );
+    
+   }
+
 
 
 }
