@@ -1,6 +1,8 @@
 
 
 import React , {Component} from 'react';
+import { Link } from 'react-router-dom';
+
 
 
 class Sidebar extends Component{
@@ -12,7 +14,7 @@ class Sidebar extends Component{
             <aside id="sidebar">
             <div id="nav-blog" className="sidebar-item">
                 <h3>Puedes hacer esto</h3>
-                <a href="#" className="btn btn-success">Crear artículo</a>
+                <Link to="/crear-articulo" className="btn btn-success">Crear artículo</Link>
             </div>
 
             <div id="search" className="sidebar-item">

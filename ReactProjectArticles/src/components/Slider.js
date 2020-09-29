@@ -1,6 +1,7 @@
 
 
 import React , {Component} from 'react';
+import {Link} from 'react-router-dom';
 
 
 class Slider extends Component{
@@ -12,7 +13,7 @@ class Slider extends Component{
 
         <div id="slider" className="slider-big">
         <h1>React JS con Luis Esquivel</h1>
-        <a href="# " className="btn-white">Ir al blog</a>
+        <Link to="/blog" className="btn-white">Ir al blog</Link>
          </div>
 
 
