@@ -10,7 +10,7 @@ class Header extends Component{
     render(){
         return(
             <header id="header">
-            <div class="center">
+            <div className="center">
        
 
           {/* LOGO */}
@@ -26,19 +26,19 @@ class Header extends Component{
                 <nav id="menu">
                     <ul>
                         <li>
-                            <NavLink to="/home" activeClass="active">Inicio</NavLink>
+                            <NavLink to="/home" activeClassName="active">Inicio</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/blog" activeClass="active">Blog</NavLink>
+                            <NavLink to="/blog" activeClassName="active">Blog</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/formulario" activeClass="active">Formulario</NavLink>
+                            <NavLink to="/formulario" activeClassName="active">Formulario</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/peliculas" activeClass="active">Peliculas</NavLink>
+                            <NavLink to="/peliculas" activeClassName="active">Peliculas</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/pagina" activeClass="active">Pagina</NavLink>
+                            <NavLink to="/pagina" activeClassName="active">Pagina</NavLink>
                         </li>                            
                     </ul>
                 </nav>

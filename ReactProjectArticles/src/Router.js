@@ -36,7 +36,7 @@ export default class Router extends Component{
                 <Slider></Slider>
 
 
-                <div class="center">
+                <div className="center">
                 <section id="content">
 
            {/*configurar rutas */}
@@ -45,7 +45,7 @@ export default class Router extends Component{
             <Route exact path="/home" component={Home}></Route>
             <Route exact path="/blog" component={Blog}></Route>
             <Route exact path="/formulario" component={Formulario}></Route>
-            <Route exact path="/busqueda" component={Busqueda}></Route>
+            <Route exact path="/busqueda/:searched" component={Busqueda}></Route>
             <Route exact path="/crear-articulo" component={AricleNew}></Route>
             <Route exact path="/actualizar-articulo" component={ArticleUpdate}></Route>
           

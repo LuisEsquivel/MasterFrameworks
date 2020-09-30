@@ -9,13 +9,13 @@ export default class Article extends Component {
 
         return (
 
-            <article class="article-item article-detail">
-                <div class="image-wrap">
+            <article className="article-item article-detail">
+                <div className="image-wrap">
                     <img src="https://unhabitatmejor.leroymerlin.es/sites/default/files/styles/header_category/public/2018-10/4%20paisaje%20macedonia.jpg?itok=AELknmF8" alt="Paisaje" />
                 </div>
 
-                <h1 class="subheader">Articulo de prueba</h1>
-                <span class="date">
+                <h1 className="subheader">Articulo de prueba</h1>
+                <span className="date">
                     Hace 5 minutos
             </span>
                 <p>
@@ -28,7 +28,7 @@ export default class Article extends Component {
                     Donec fermentum ligula at ultrices faucibus. Proin facilisis est vitae vehicula finibus. Praesent rutrum eleifend ligula, sit amet molestie dolor interdum nec. Cras sodales odio nec diam posuere, mollis aliquam magna tempus. Fusce lobortis maximus dapibus. Curabitur aliquam vehicula ultricies. Nulla sed vulputate erat.
             </p>
 
-                <div class="clearfix"></div>
+                <div className="clearfix"></div>
             </article>
         )
 
