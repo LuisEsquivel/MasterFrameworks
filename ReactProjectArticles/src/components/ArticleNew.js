@@ -11,17 +11,14 @@ export default class ArticleNew extends Component {
     article = [];
 
 
-    art = new Article;
+    art = Article(); 
 
     //Image Preview
     previewImageUrl = null;
 
-     art = ({
-        title: this.titleRef,
-        content: this.contentRef,
-        date: Date.now(),
-        image: ''
-    })
+    
+
+
 
     state = {
         article: [],
