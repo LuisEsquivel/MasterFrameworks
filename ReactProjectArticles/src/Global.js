@@ -20,6 +20,8 @@ export default class Global {
   get_Image = 'get-image/';
 
 
+  fd = new FormData();
+
   getImage = function (id) {
     return this.urlBase + '/get-image/' + id + '.jpg';
   }
@@ -103,8 +105,8 @@ export default class Global {
 
       axios.post(this.urlBase + 'save', object)
         .then(res => {
-          if (res.data.article != null) {
-            resolve(res.data.article);
+          if (res != null) {
+            resolve(res);
           } else {
             resolve([]);
           }
@@ -186,6 +188,8 @@ export default class Global {
 
     }
 
+    
+  
   }
 
   ImagePreview = async function (event) {
