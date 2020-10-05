@@ -1,35 +1,114 @@
 
 
 import React, { Component } from 'react';
+import Global from '../Global';
+import Moment from 'react-moment';
+import 'moment/locale/es';
+import swal from 'sweetalert';
+import { Redirect } from 'react-router-dom';
+
 
 
 export default class Article extends Component {
 
+    state = {
+        article: [],
+        status : false,
+        update: false,
+        updateId : ''
+    }
+
+    g = new Global();
+
+    async componentDidMount() {
+        this.setState({
+            article: await this.g.getArticles(this.props.match.params.id)
+        })
+
+    }
+
+    Update(id){
+        this.setState({
+            update: true,
+            updateId : id
+        })
+    }
+
+    async Delete(id){
+
+        swal({
+            title: "¿Estás seguro de eliminar el artículo?",
+            text: "Una vez eliminado no se podrá recuperar !!!",
+            icon: "warning",
+            buttons: ['Cancelar', 'Confirmar'],
+            dangerMode: true,
+          })
+          .then( async (willDelete) => {
+            if (willDelete) {
+
+                var res = await this.g.delete(id);
+
+                if(res.data.status === 'success'){
+                    swal("Ariculo Eliminado", "OK", "success");
+                    this.setState({
+                        status : true
+                    })
+                }else{
+                    swal("Algo salió mal al eliminar el artículo", "OK", "error");
+                }
+
+            } else {
+              swal("Tranquilo el articulo no se eliminó :)");
+            }
+          });
+
+    }
+
     render() {
 
+
+        if(this.state.status){
+           return <Redirect to="/blog"/>
+        }
+
+      if(this.state.update){
+          return <Redirect to={'/actualizar-articulo/'+this.state.updateId} />
+      }
+
+
+        var listArticle = this.state.article.map((art, i) => {
+
+
+            return (
+
+                <article className="article-item article-detail" key={i}>
+                    <div className="image-wrap">
+                        <img src={this.g.getImage(art._id)} alt={art.title} />
+                    </div>
+
+                    <h1 className="subheader">{art.title}</h1>
+                    <span className="date">
+                        <Moment locale="es" fromNow>{art.date}</Moment>
+                    </span>
+                    <p>
+                        {art.content}
+                    </p>
+
+
+                    <button class="btn btn-warning" onClick={() => this.Update(art._id)}>Editar</button>
+                    <button class="btn btn-danger" onClick={() => this.Delete(art._id)}> Eliminar</button >
+
+                    <div className="clearfix"></div>
+                </article >
+            )
+
+        });
+
+
         return (
-
-            <article className="article-item article-detail">
-                <div className="image-wrap">
-                    <img src="https://unhabitatmejor.leroymerlin.es/sites/default/files/styles/header_category/public/2018-10/4%20paisaje%20macedonia.jpg?itok=AELknmF8" alt="Paisaje" />
-                </div>
-
-                <h1 className="subheader">Articulo de prueba</h1>
-                <span className="date">
-                    Hace 5 minutos
-            </span>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet consectetur dui. Vestibulum ac convallis urna, vitae porta massa. Mauris sit amet nisi in metus tempor convallis. Nulla nec euismod turpis. Cras luctus lorem et nisl dapibus aliquet. Curabitur lorem nunc, tristique a felis ac, vehicula laoreet ante. Ut auctor orci turpis. Cras sit amet placerat nulla, feugiat eleifend metus. Mauris nec convallis lectus. In gravida sapien in iaculis vulputate. Aliquam a rhoncus elit, sit amet pretium nisl. Vivamus egestas facilisis viverra. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut vel lorem est. Cras et sapien finibus, mattis est in, condimentum nisl.
-            </p>
-                <p>
-                    Aenean vel orci a tellus porttitor eleifend. Integer tincidunt porta fermentum. Aenean vitae enim iaculis, sollicitudin risus in, interdum justo. Donec semper metus ac nibh maximus venenatis. Cras sodales nisl metus, a placerat risus tristique ornare. Ut finibus nisi a ante tincidunt hendrerit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Ut eget venenatis augue, id molestie eros. Quisque leo risus, pellentesque mattis libero id, pharetra tempor turpis.
-            </p>
-                <p>
-                    Donec fermentum ligula at ultrices faucibus. Proin facilisis est vitae vehicula finibus. Praesent rutrum eleifend ligula, sit amet molestie dolor interdum nec. Cras sodales odio nec diam posuere, mollis aliquam magna tempus. Fusce lobortis maximus dapibus. Curabitur aliquam vehicula ultricies. Nulla sed vulputate erat.
-            </p>
-
-                <div className="clearfix"></div>
-            </article>
+            <div>
+                { listArticle}
+            </div >
         )
 
     }

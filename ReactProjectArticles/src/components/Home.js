@@ -4,8 +4,8 @@
 import React, { Component } from 'react';
 import Moment from 'react-moment';
 import 'moment/locale/es';
-import axios from 'axios';
 import Global from '../Global';
+import { Link } from 'react-router-dom';
 
 
 export default class Home extends Component {
@@ -43,11 +43,11 @@ export default class Home extends Component {
 
     render() {
 
-        var listArticlesLast = this.state.articles.map((article) => {
+        var listArticlesLast = this.state.articles.map((article, i) => {
 
             return (
 
-                <div id="articles">
+                <div id="articles" key={i}>
                     <article className="article-item" id="article-template">
                         <div className="image-wrap image-all">
                             <img src={this.g.getImage(article._id)} alt={article.title} />
@@ -57,7 +57,7 @@ export default class Home extends Component {
                         <span className="date">
                             <Moment locale="es" fromNow>{article.date}</Moment>
                         </span>
-                        <a href="#">Leer más</a>
+                        <Link to="/blog">Leer más</Link>
 
                         <div className="clearfix"></div>
                     </article>

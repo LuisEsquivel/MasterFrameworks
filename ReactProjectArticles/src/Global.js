@@ -121,12 +121,13 @@ export default class Global {
 
   update = async function (object) {
 
+
     return new Promise((resolve) => {
 
-      axios.put(this.urlBase + 'update', object)
+      axios.put(this.urlBase + 'article/', object)
         .then(res => {
-          if (res.data.article != null) {
-            resolve(res.data.article);
+          if (res != null) {
+            resolve(res);
           } else {
             resolve([]);
           }
@@ -142,14 +143,11 @@ export default class Global {
 
   delete = async function (id) {
 
-    this.articles = 'delete/' + id;
-
-
     return new Promise((resolve) => {
-      axios.delete(this.urlBase + this.articles)
+      axios.delete(this.urlBase + 'article/'+id)
         .then(res => {
-          if (res.data.article != null) {
-            resolve(res.data.article);
+          if (res != null) {
+            resolve(res);
           } else {
             resolve([]);
           }
@@ -167,16 +165,15 @@ export default class Global {
 
 
 
-  uploadImage = async function (event, id) {
+  uploadImage = async function (image, id) {
 
-    if (event != null) {
+    if (image !== null) {
 
-      this.selectedFile = event.target.files[0];
-      this.fd.append('file', this.selectedFile, id + ".jpg");
+      this.fd.append('file', image, id + ".jpg");
 
       return new Promise((resolve) => {
 
-        axios.post(this.url + "article-image/", this.fd)
+        axios.post(this.urlBase + "article-image/", this.fd)
           .then(res => {
             resolve(res.data.status);
           }).catch(err => {
@@ -188,8 +185,8 @@ export default class Global {
 
     }
 
-    
-  
+
+
   }
 
   ImagePreview = async function (event) {

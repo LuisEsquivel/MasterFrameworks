@@ -19,6 +19,7 @@ import Footer from './components/Footer';
 import Busqueda from './components/Busqueda';
 import AricleNew from './components/ArticleNew';
 import ArticleUpdate from './components/ArticleUpdate';
+import Article from './components/Article';
 
 export default class Router extends Component{
 
@@ -46,8 +47,9 @@ export default class Router extends Component{
             <Route exact path="/blog" component={Blog}></Route>
             <Route exact path="/formulario" component={Formulario}></Route>
             <Route exact path="/busqueda/:searched" component={Busqueda}></Route>
+            <Route exact path="/articulo/:id" component={Article}></Route>
             <Route exact path="/crear-articulo" component={AricleNew}></Route>
-            <Route exact path="/actualizar-articulo" component={ArticleUpdate}></Route>
+            <Route exact path="/actualizar-articulo/:id" component={ArticleUpdate}></Route>
           
 
              {/* TO THE END THE ERROR ROUTE */}

@@ -2,6 +2,7 @@
 
 import React , {Component} from 'react';
 import Home from '../components/Home';
+import Sidebar from './Sidebar';
 
 
 export default class Busqueda extends Component{
@@ -12,7 +13,11 @@ export default class Busqueda extends Component{
 
         return(
        
+         <React.Fragment>
+      
          <Home searched={searched}></Home>
+             
+         </React.Fragment>
 
         )
 
