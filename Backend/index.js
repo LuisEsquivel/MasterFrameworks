@@ -8,7 +8,10 @@ var port = 3900;
 
 mongoose.set('useFindAndModify', false);
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/api_rest_blog', {useNewUrlParser :true , useUnifiedTopology: true})
+
+
+//mongoose.connect('mongodb://localhost:27017/api_rest_blog', {useNewUrlParser :true , useUnifiedTopology: true})
+mongoose.connect('mongodb+srv://LuisEsquivel:SjWYzxFeAf9Ew3At@cluster0.tisdb.mongodb.net/<dbname>?retryWrites=true&w=majority' , {useNewUrlParser :true , useUnifiedTopology: true})
 .then( () => {
    console.log('Conectado a la bd freezer');
 

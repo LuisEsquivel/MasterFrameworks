@@ -24,7 +24,8 @@ export default class ArticleUpdate extends Component {
         eventImageFile: null,
         previewImageUrl: null,
 
-        redirect: false
+        redirect: false,
+        updateImage : false
     }
 
 
@@ -62,25 +63,23 @@ export default class ArticleUpdate extends Component {
         this.a.content = this.state.content;
         this.a.date = this.state.date;
 
-        const updateImage = false;
-
         if(this.state.previewImageUrl !== null){
-            this.updateImage = true;
+           this.setState({updateImage:true});
         }
 
         if(this.state.previewImageUrl === null && this.state.eventImageFile === null){
-            this.updateImage = false;
+            this.setState({updateImage:true});
         }
 
 
-        var res = await this.g.update(this.a, this.updateImage);
+        var res = await this.g.update(this.a, this.state.updateImage);
 
-        if (res != null && res != []) {
+        if (res !== null && res !== []) {
 
 
             if (res.data.status === 'success') {
 
-                if (this.state.eventImageFile != null) {
+                if (this.state.eventImageFile !== null) {
                     var uploadImage = await this.g.uploadImage(this.state.eventImageFile, this.state._id);
                     if (uploadImage === 'error') {
                         swal("Algo salió mal al actualizar la imágen !!!", "OK", 'warning');
@@ -88,7 +87,7 @@ export default class ArticleUpdate extends Component {
                 }
 
                 this.setState({ redirect: true })
-                swal("Información Almacenda", 'OK', 'success');
+                swal("Información Actualizada", 'OK', 'success');
 
             }
 

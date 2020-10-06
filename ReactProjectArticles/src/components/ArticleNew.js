@@ -97,20 +97,15 @@ export default class ArticleNew extends Component {
         }
 
         return (
-
-
-            <div>
-
+            <div id="new-article">
+                
                 <h1 className="subheader">CREAR ARTICULO</h1>
 
                 <form className="mid-form" onSubmit={e => this.onSubmit(e)}>
 
                     <div className="form-group">
                         <input type="file" onChange={e => this.eventImage(e)} />
-
-
-                        <div onClick={this.eventImage(null)}>X</div>
-
+                        <p onClick={() => this.eventImage(null)}>X</p>
                         <div className="image-wrap image-all">
                             <img src={this.state.previewImageUrl} alt="Imagen"></img>
                         </div>
@@ -118,13 +113,13 @@ export default class ArticleNew extends Component {
 
 
                     <div className="form-group">
-                        <label for="title">Título</label>
-                        <input type="text" name="title" onChange={e => this.setState({ title: e.target.value })} />
+                        <label htmlFor="title">Título</label>
+                        <input type="text" name="title" onChange={e => this.setState({ title: e.target.value })} defaultValue={this.state.title}/>
                     </div>
 
                     <div className="form-group">
-                        <label for="content">Contenido</label>
-                        <textarea type="text" name="content" rows="3" onChange={e => this.setState({ content: e.target.value })} > </textarea>
+                        <label htmlFor="content">Contenido</label>
+                        <textarea type="text" name="content" rows="3" onChange={e => this.setState({ content: e.target.value })} value={this.state.content}> </textarea>
                     </div>
 
                     <div className="clearfix"></div>
