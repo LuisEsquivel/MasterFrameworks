@@ -17,8 +17,9 @@ export default class ArticleUpdate extends Component {
 
         _id: '',
         title: '',
+        date : '',
         content: '',
-        image : 'DefaultImage',
+        firstImage : true,
 
         eventImageFile: null,
         previewImageUrl: null,
@@ -44,6 +45,7 @@ export default class ArticleUpdate extends Component {
             this.setState({
                 _id: art._id,
                 title: art.title,
+                date : art.date,
                 content: art.content
             })
         });
@@ -58,6 +60,7 @@ export default class ArticleUpdate extends Component {
         this.a._id = this.state._id;
         this.a.title = this.state.title;
         this.a.content = this.state.content;
+        this.a.date = this.state.date;
 
         const updateImage = false;
 
@@ -66,7 +69,7 @@ export default class ArticleUpdate extends Component {
         }
 
         if(this.state.previewImageUrl === null && this.state.eventImageFile === null){
-            this.updateImage = true;
+            this.updateImage = false;
         }
 
 
@@ -99,6 +102,7 @@ export default class ArticleUpdate extends Component {
         this.setState({
             eventImageFile : null,
             previewImageUrl : null,
+            firstImage: false
         })
 
         if (event !== null) {
@@ -122,7 +126,7 @@ export default class ArticleUpdate extends Component {
 
                 <div key={i}>
 
-                    <h1 className="subheader">Formulario</h1>
+                    <h1 className="subheader">Actualizar Artículo</h1>
 
                     <form className="mid-form" onSubmit={e => this.onSubmit(e)}>
 
@@ -141,7 +145,7 @@ export default class ArticleUpdate extends Component {
                                 }
 
                                 {
-                                this.state.previewImageUrl === null ?
+                                this.state.previewImageUrl === null & this.state.firstImage ?
                                 <img src={this.g.getImage(art._id)} alt="Imagen"></img> 
                                 : null
                                 }
