@@ -57,7 +57,8 @@ export default class Home extends Component {
                         <span className="date">
                             <Moment locale="es" fromNow>{article.date}</Moment>
                         </span>
-                        <Link to="/blog">Leer más</Link>
+                      
+                        <Link to={"/articulo/"+article._id}>Leer más</Link>
 
                         <div className="clearfix"></div>
                     </article>

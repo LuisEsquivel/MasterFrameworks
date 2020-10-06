@@ -124,7 +124,7 @@ export default class ArticleNew extends Component {
 
                     <div className="form-group">
                         <label for="content">Contenido</label>
-                        <input type="text" name="content" onChange={e => this.setState({ content: e.target.value })} />
+                        <textarea type="text" name="content" rows="3" onChange={e => this.setState({ content: e.target.value })} > </textarea>
                     </div>
 
                     <div className="clearfix"></div>

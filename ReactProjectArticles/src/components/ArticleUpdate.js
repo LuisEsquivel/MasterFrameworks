@@ -12,16 +12,13 @@ export default class ArticleUpdate extends Component {
     g = new Global();
     a = new Article();
 
-    titleRef = React.createRef();
-    contentRef = React.createRef();
-
     state = {
         article: [],
 
         _id: '',
         title: '',
         content: '',
-        image: '',
+        image : 'DefaultImage',
 
         eventImageFile: null,
         previewImageUrl: null,
@@ -36,7 +33,9 @@ export default class ArticleUpdate extends Component {
 
         this.setState(
             {
-                article: article
+                article: article,
+                previewImageUrl : null,
+                eventImageFile : null
             }
         )
 
@@ -60,7 +59,18 @@ export default class ArticleUpdate extends Component {
         this.a.title = this.state.title;
         this.a.content = this.state.content;
 
-        var res = await this.g.update(this.a);
+        const updateImage = false;
+
+        if(this.state.previewImageUrl !== null){
+            this.updateImage = true;
+        }
+
+        if(this.state.previewImageUrl === null && this.state.eventImageFile === null){
+            this.updateImage = true;
+        }
+
+
+        var res = await this.g.update(this.a, this.updateImage);
 
         if (res != null && res != []) {
 
@@ -68,7 +78,7 @@ export default class ArticleUpdate extends Component {
             if (res.data.status === 'success') {
 
                 if (this.state.eventImageFile != null) {
-                    var uploadImage = await this.g.uploadImage(this.eventImageFile, this.state._id);
+                    var uploadImage = await this.g.uploadImage(this.state.eventImageFile, this.state._id);
                     if (uploadImage === 'error') {
                         swal("Algo salió mal al actualizar la imágen !!!", "OK", 'warning');
                     }
@@ -85,23 +95,17 @@ export default class ArticleUpdate extends Component {
 
 
     async eventImage(event) {
-        this.previewImageUrl = null;
-        this._eventImageFile = null;
+
+        this.setState({
+            eventImageFile : null,
+            previewImageUrl : null,
+        })
 
         if (event !== null) {
-
-            this._eventImageFile = event.target.files[0];
             this.setState({
-                eventImageFile: this._eventImageFile
-            })
-
-
-            this._previewImageUrl = await this.g.ImagePreview(event);
-
-            this.setState({
-                previewImageUrl: this._previewImageUrl
-            })
-
+                eventImageFile:  event.target.files[0],
+                previewImageUrl: await this.g.ImagePreview(event)
+            });
         }
 
     }
@@ -126,12 +130,21 @@ export default class ArticleUpdate extends Component {
                             <input type="file" onChange={e => this.eventImage(e)} />
 
 
-                            <div onClick={this.eventImage(null)}>X</div>
+                            {this.state.image !== null | this.state.previewImageUrl !== null ?  <p onClick={() => this.eventImage(null)}>X</p> : null}
 
                             <div className="image-wrap image-all">
 
-                                {this.previewImageUrl != null && <img src={this.state.previewImageUrl} alt="Imagen"></img>}
-                                {this.previewImageUrl === null & this.state.image != null && <img src={this.g.getImage(art._id)} alt="Imagen"></img>}
+                                {
+                                 this.state.previewImageUrl !== null ?
+                                 <img src={this.state.previewImageUrl} alt="Imagen"></img>   
+                                 : null                      
+                                }
+
+                                {
+                                this.state.previewImageUrl === null ?
+                                <img src={this.g.getImage(art._id)} alt="Imagen"></img> 
+                                : null
+                                }
 
                             </div>
                         </div>
@@ -143,7 +156,7 @@ export default class ArticleUpdate extends Component {
 
                         <div className="form-group">
                             <label for="contenido">Contenido</label>
-                            <input type="text" name="contenido" onChange={e => this.setState({ content: e.target.value })} defaultValue={art.content} />
+                            <textarea type="text" name="contenido" rows="3" value={this.state.content} onChange={e => this.setState({ content: e.target.value })} > </textarea>
                         </div>
 
                         <div className="clearfix"></div>

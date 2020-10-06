@@ -23,7 +23,7 @@ export default class Global {
   fd = new FormData();
 
   getImage = function (id) {
-    return this.urlBase + '/get-image/' + id + '.jpg';
+    return this.urlBase + '/get-image/' + id + '.jpg?'+Math.random();
   }
 
 
@@ -119,12 +119,12 @@ export default class Global {
   }
 
 
-  update = async function (object) {
+  update = async function (object, updateImage = false) {
 
 
     return new Promise((resolve) => {
 
-      axios.put(this.urlBase + 'article/', object)
+      axios.put(this.urlBase + 'article/'+updateImage, object)
         .then(res => {
           if (res != null) {
             resolve(res);
