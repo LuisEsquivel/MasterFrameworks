@@ -13,7 +13,7 @@ mongoose.Promise = global.Promise;
 require('dotenv').config();
 
 //mongoose.connect('mongodb://localhost:27017/api_rest_blog', {useNewUrlParser :true , useUnifiedTopology: true})
-mongoose.connect(process.env.DBCONNTECTION , {useNewUrlParser :true , useUnifiedTopology: true})
+mongoose.connect(process.env.DB_CONNECTION , {useNewUrlParser :true , useUnifiedTopology: true})
 .then( () => {
    console.log('Conectado a la bd freezer');
 
