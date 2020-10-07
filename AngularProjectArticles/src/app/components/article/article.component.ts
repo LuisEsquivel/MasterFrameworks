@@ -20,14 +20,14 @@ export class ArticleComponent implements OnInit {
   public article : Article[];
   public url : string;
   public urlImage : string;
+  public g = new Global();
 
   constructor(
     private _articleService : ArticleService,
     private _router : Router,
     private _route : ActivatedRoute
   ) {
-    var g = new Global();
-    this.url = g.url();
+    this.url = this.g.url();
     this.getImage();
    }
 
@@ -109,7 +109,7 @@ export class ArticleComponent implements OnInit {
       var id = params['id'];
       //se le pone ?+Math.random ya que el navegador guarda la imágen en 
       // caché y no se actualiza al actualizar (valga la redundancia) la imágen
-      this.urlImage = this.url+'get-image/'+id+'.jpg?'+Math.random();
+      this.urlImage = this.g.getImage(id);
     } );
     
    }

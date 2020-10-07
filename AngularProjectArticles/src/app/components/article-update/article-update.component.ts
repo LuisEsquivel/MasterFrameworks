@@ -18,7 +18,7 @@ export class ArticleUpdateComponent implements OnInit {
 
   public article: Article;
   public eventImageProp: any;
-  public g: Global;
+  public g = new Global();
 
   //preview image
   public previewUrl: any = null;
@@ -31,8 +31,8 @@ export class ArticleUpdateComponent implements OnInit {
   ) {
     this.article = new Article('', '', '', '', Date.now);
     this.eventImageProp = null;
-    this.g = new Global();
     this.FirstImage = true;
+
     this.getImage();
   }
 
@@ -147,7 +147,7 @@ export class ArticleUpdateComponent implements OnInit {
       var id = params['id'];
       //se le pone ?+Math.random ya que el navegador guarda la imágen en 
       // caché y no se actualiza al actualizar (valga la redundancia) la imágen
-      this.urlImage = this.g.url()+'get-image/'+id+'.jpg?'+Math.random();
+      this.urlImage = this.g.getImage(id);
     } );
     
    }

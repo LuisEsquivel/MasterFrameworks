@@ -14,6 +14,9 @@ export class Global {
     return 'https://jsonplaceholder.typicode.com/posts';
   }
 
+  public getImage(id){
+    return this.url()+'get-image/'+id+'.jpg?'+Math.random();
+  }
 
 
   ImagePreview = async function (event) {

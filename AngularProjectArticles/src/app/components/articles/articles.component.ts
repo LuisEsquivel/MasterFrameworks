@@ -11,23 +11,14 @@ import { Global } from '../../services/global';
 export class ArticlesComponent implements OnInit {
 
   public url: string;
-  public urlImage: string;
 
   @Input() articles: Article[];
+  g = new Global();
 
   constructor() {
-
-    var g = new Global();
-    this.url = g.url();
+    this.url = this.g.url();
   }
 
   ngOnInit(): void {
   }
-
-
-  randomImageSuffix(){
-    return Math.random();
-  }
-   
-
 }

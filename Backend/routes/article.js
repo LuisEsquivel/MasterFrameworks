@@ -8,14 +8,7 @@ var ArticleController = require('../controllers/article');
 
 var router = express.Router();
 
-//we use connect-multiparty and we save the image in the Directory ./upload/articles
-var multipart = require('connect-multiparty');
-var md_upload = multipart({
-    uploadDir: './upload/articles'
-});
-
-
-
+//we use multer and we save the image in the Directory ./upload/articles
 const multer = require('multer');
 
 var storage = multer.diskStorage({
@@ -27,8 +20,7 @@ var storage = multer.diskStorage({
     }
 })
 
-var upload = multer({ storage: storage })
-
+var upload = multer({ storage: storage });
 
 // Rutas de prueba
 router.get('/test-de_controlador', ArticleController.test);
@@ -52,10 +44,10 @@ router.post('/article-image', upload.single('file'), (req, res) => {
         res.json({
             'status': 'error'
         });
-    }else{
-            res.json({
-        'status': 'success'
-    });
+    } else {
+        res.json({
+            'status': 'success'
+        });
     }
 
 });// we use the middleware for the images
