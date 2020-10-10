@@ -1,23 +1,18 @@
 
 
-import React , {Component} from 'react';
+import React, { Component } from 'react';
 import Home from '../components/Home';
+import SideBar from '../components/Sidebar';
 
 
-export default class Busqueda extends Component{
+export default class Busqueda extends Component {
 
-    render(){
+    render() {
 
         var searched = this.props.match.params.searched;
 
-        return(
-       
-         <React.Fragment>
-      
-         <Home searched={searched}></Home>
-             
-         </React.Fragment>
-
+        return (
+             <Home searched={searched}></Home>
         )
 
     }

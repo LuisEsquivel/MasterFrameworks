@@ -7,7 +7,7 @@ export class Global {
   }
 
   public url = function () {
-    return 'http://localhost:3900/api/';
+    return 'https://master-framewoks-js.herokuapp.com/api/';
   }
 
   public placeholderurl = function () {

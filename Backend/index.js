@@ -18,7 +18,7 @@ mongoose.connect(process.env.DB_CONNECTION , {useNewUrlParser :true , useUnified
    console.log('Conectado a la bd freezer');
 
    // Create the server and listen to Http Petitions
-   app.listen(port, () =>{
+   app.listen(process.env.PORT || port, () =>{
     console.log('Server corriendo en http://localhost:'+port);
    });
 

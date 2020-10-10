@@ -3,6 +3,7 @@ import Global from '../Global';
 import Moment from 'react-moment';
 import 'moment/locale/es'
 import { Link } from 'react-router-dom';
+import Sidebar from '../components/Sidebar';
 
 export default class Blog extends Component {
 
@@ -54,9 +55,14 @@ export default class Blog extends Component {
 
         return (
 
-            <div>
-                {listArticles}
-            </div>
+            <React.Fragment>
+                <div className="center">
+                    <div id="content">
+                        {listArticles}
+                    </div>
+                    <Sidebar></Sidebar>
+                </div>
+            </React.Fragment>
 
         )
 

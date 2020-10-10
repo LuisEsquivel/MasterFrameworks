@@ -6,6 +6,8 @@ import Moment from 'react-moment';
 import 'moment/locale/es';
 import Global from '../Global';
 import { Link } from 'react-router-dom';
+import Sidebar from './Sidebar';
+
 
 
 export default class Home extends Component {
@@ -23,7 +25,7 @@ export default class Home extends Component {
         const searched = await this.props.searched;
 
 
-        if (searched && searched != null) {
+        if (searched && searched !== null) {
             this.articles = await this.g.search(searched);
 
         } else {
@@ -57,13 +59,14 @@ export default class Home extends Component {
                         <span className="date">
                             <Moment locale="es" fromNow>{article.date}</Moment>
                         </span>
-                      
-                        <Link to={"/articulo/"+article._id}>Leer más</Link>
+
+                        <Link to={"/articulo/" + article._id}>Leer más</Link>
 
                         <div className="clearfix"></div>
                     </article>
 
                     {/*  <!--AÑADIR ARTICULOS VIA JS--> */}
+
 
                 </div>
 
@@ -72,10 +75,40 @@ export default class Home extends Component {
         });// end map articles
 
 
+        if (this.state.articles.length == 0 && this.props.searched !== null) {
+            return (<React.Fragment>
+                <div className="center">
+                    <div id="content">
+                        <h1>No se encontraron artículos</h1>
+                    </div>
+                    <Sidebar></Sidebar>
+                </div>
+            </React.Fragment>
+            )
+        }
+
+        if (this.state.articles.length == 0 && this.props.searched == null) {
+            return (<React.Fragment>
+                <div className="center">
+                    <div id="content">
+                        <h1>No se encontraron artículos</h1>
+                    </div>
+                    <Sidebar></Sidebar>
+                </div>
+            </React.Fragment>
+            )
+        }
+
         return (
-            <div>
-                {listArticlesLast}
-            </div>
+
+            <React.Fragment>
+                <div className="center">
+                    <div id="content">
+                        {listArticlesLast}
+                    </div>
+                    <Sidebar></Sidebar>
+                </div>
+            </React.Fragment>
         )
 
 

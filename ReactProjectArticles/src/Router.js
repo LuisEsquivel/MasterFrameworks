@@ -1,7 +1,7 @@
 
 
 import React , {Component} from 'react';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
 
 
 //importar componentes para las rutas
@@ -36,10 +36,6 @@ export default class Router extends Component{
                <Header></Header>
                 <Slider></Slider>
 
-
-                <div className="center">
-                <section id="content">
-
            {/*configurar rutas */}
             <Switch>
             <Route exact path="/" component={Home}></Route>
@@ -47,6 +43,15 @@ export default class Router extends Component{
             <Route exact path="/blog" component={Blog}></Route>
             <Route exact path="/formulario" component={Formulario}></Route>
             <Route exact path="/busqueda/:searched" component={Busqueda}></Route>
+            <Route exact path="/redirect/:searched" 
+             render={
+                  (props)=>{
+                    var searched = props.match.params.searched;
+                    return <Redirect to={'/busqueda/'+searched}></Redirect>
+                  }
+             }
+            ></Route>
+
             <Route exact path="/articulo/:id" component={Article}></Route>
             <Route exact path="/crear-articulo" component={AricleNew}></Route>
             <Route exact path="/actualizar-articulo/:id" component={ArticleUpdate}></Route>
@@ -56,13 +61,10 @@ export default class Router extends Component{
              <Route  component={Error}></Route>
             </Switch>
 
-                </section>
+      
 
-                <Sidebar></Sidebar>
-
-                <div className="clearfix"></div>
-
-                </div>
+                  <div className="clearfix"></div>
+  
 
             <Footer></Footer>
             

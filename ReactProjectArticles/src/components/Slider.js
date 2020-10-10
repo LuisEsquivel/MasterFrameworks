@@ -8,10 +8,12 @@ class Slider extends Component{
 
  render(){
 
-    return(
-       
+   var claseSilder = this.props.claseSilder;
 
-        <div id="slider" className="slider-big">
+    return(
+      
+
+        <div id="slider" className={claseSilder}>
         <h1>React JS con Luis Esquivel</h1>
         <Link to="/blog" className="btn-white">Ir al blog</Link>
          </div>

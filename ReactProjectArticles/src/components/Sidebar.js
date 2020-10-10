@@ -1,53 +1,70 @@
 
 
-import React , {Component} from 'react';
+import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
 
 
-class Sidebar extends Component{
+class Sidebar extends Component {
 
 
-    state= {
+    state = {
         searched: '',
-        searchBool : false
+        searchBool: false
     }
 
-    onSubmit(e){
+
+
+    onSubmit(e) {
         e.preventDefault();
-        this.setState({
-            searchBool : true
-        })
-    } 
 
-
-    render(){
-
-        if(this.state.searchBool){
-            return <Redirect to={this.state.searched}/>  
+        if (this.state.searched !== null && this.state.searched !== '') {
+            this.setState({
+                searchBool: true
+            })
         }
 
- 
-        return(
+
+    }
+
+
+    onChange(e) {
+        if (e != null) {
+            this.setState({
+                searched: "/redirect/" + e.target.value
+            });
+        }
+
+    }
+
+    render() {
+
+        if (this.state.searchBool && this.state.searched != '' && this.state.searched != null) {
+            return <Redirect to={this.state.searched} />
+
+        }
+
+
+        return (
 
             <aside id="sidebar">
-            <div id="nav-blog" className="sidebar-item">
-                <h3>Puedes hacer esto</h3>
-                <Link to="/crear-articulo" className="btn btn-success">Crear artículo</Link>
-            </div>
+                <div id="nav-blog" className="sidebar-item">
+                    <h3>Puedes hacer esto</h3>
+                    <Link to="/crear-articulo" className="btn btn-success">Crear artículo</Link>
+                </div>
 
-            <div id="search" className="sidebar-item">
+                <div id="search" className="sidebar-item">
                     <h3>Buscador</h3>
                     <p>Encuentra el artículo que buscas</p>
                     <form onSubmit={e => this.onSubmit(e)}>
-                        <input type="text" name="search" onChange={e => this.setState({searched : "/busqueda/"+e.target.value})}/>
+                        <input type="text" name="search" onChange={e => this.onChange(e)} />
                         <input type="submit" name="submit" value="Buscar" className="btn" />
                     </form>
-            </div>
-          </aside>
+                </div>
+            </aside>
 
         )
-        
+
 
     }
 

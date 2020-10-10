@@ -7,7 +7,7 @@ export default class Global {
 
 
   url = function () {
-    return 'http://localhost:3900/api/';
+    return 'https://master-framewoks-js.herokuapp.com/api/';
   }
 
   placeholderurl = function () {
@@ -15,7 +15,7 @@ export default class Global {
   }
 
 
-  urlBase = 'http://localhost:3900/api/';
+  urlBase = 'https://master-framewoks-js.herokuapp.com/api/';
   articles = 'articles/null/null';
   get_Image = 'get-image/';
 
