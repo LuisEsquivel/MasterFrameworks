@@ -13,13 +13,12 @@ import Error from './components/Error';
 
 //Components
 import Header from './components/Header';
-import Slider from './components/Slider';
-import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
 import Busqueda from './components/Busqueda';
 import AricleNew from './components/ArticleNew';
 import ArticleUpdate from './components/ArticleUpdate';
 import Article from './components/Article';
+import Pagina from './components/Pagina';
 
 export default class Router extends Component{
 
@@ -34,7 +33,7 @@ export default class Router extends Component{
 
 
                <Header></Header>
-                <Slider></Slider>
+    
 
            {/*configurar rutas */}
             <Switch>
@@ -55,6 +54,7 @@ export default class Router extends Component{
             <Route exact path="/articulo/:id" component={Article}></Route>
             <Route exact path="/crear-articulo" component={AricleNew}></Route>
             <Route exact path="/actualizar-articulo/:id" component={ArticleUpdate}></Route>
+            <Route exact path='/pagina' component={Pagina}></Route>
           
 
              {/* TO THE END THE ERROR ROUTE */}

@@ -39,7 +39,7 @@ class Sidebar extends Component {
 
     render() {
 
-        if (this.state.searchBool && this.state.searched != '' && this.state.searched != null) {
+        if (this.state.searchBool && this.state.searched !== '' && this.state.searched !== null) {
             return <Redirect to={this.state.searched} />
 
         }

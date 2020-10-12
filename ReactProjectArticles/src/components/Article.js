@@ -6,7 +6,8 @@ import Moment from 'react-moment';
 import 'moment/locale/es';
 import swal from 'sweetalert';
 import { Redirect } from 'react-router-dom';
-
+import Slider from '../components/Slider';
+import Sidebar from '../components/Sidebar';
 
 
 export default class Article extends Component {
@@ -95,8 +96,8 @@ export default class Article extends Component {
                     </p>
 
 
-                    <button class="btn btn-warning" onClick={() => this.Update(art._id)}>Editar</button>
-                    <button class="btn btn-danger" onClick={() => this.Delete(art._id)}> Eliminar</button >
+                    <button className="btn btn-warning" onClick={() => this.Update(art._id)}>Editar</button>
+                    <button className="btn btn-danger" onClick={() => this.Delete(art._id)}> Eliminar</button >
 
                     <div className="clearfix"></div>
                 </article >
@@ -106,9 +107,15 @@ export default class Article extends Component {
 
 
         return (
-            <div>
-                { listArticle}
-            </div >
+            <React.Fragment>
+                 <Slider claseSilder='slider-big'></Slider>
+                <div className="center">
+                    <div id="content">
+                        {listArticle}
+                    </div>
+                    <Sidebar></Sidebar>
+                </div>
+            </React.Fragment >
         )
 
     }

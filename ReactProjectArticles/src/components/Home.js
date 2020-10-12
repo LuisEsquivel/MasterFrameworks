@@ -7,6 +7,7 @@ import 'moment/locale/es';
 import Global from '../Global';
 import { Link } from 'react-router-dom';
 import Sidebar from './Sidebar';
+import Slider from './Slider';
 
 
 
@@ -75,8 +76,9 @@ export default class Home extends Component {
         });// end map articles
 
 
-        if (this.state.articles.length == 0 && this.props.searched !== null) {
+        if (this.state.articles.length === 0 && this.props.searched !== null) {
             return (<React.Fragment>
+                 <Slider claseSilder='slider-big'></Slider>
                 <div className="center">
                     <div id="content">
                         <h1>No se encontraron artículos</h1>
@@ -87,8 +89,9 @@ export default class Home extends Component {
             )
         }
 
-        if (this.state.articles.length == 0 && this.props.searched == null) {
+        if (this.state.articles.length === 0 && this.props.searched === null) {
             return (<React.Fragment>
+                 <Slider claseSilder='slider-big'></Slider>
                 <div className="center">
                     <div id="content">
                         <h1>No se encontraron artículos</h1>
@@ -102,6 +105,7 @@ export default class Home extends Component {
         return (
 
             <React.Fragment>
+                <Slider claseSilder='slider-big'></Slider>
                 <div className="center">
                     <div id="content">
                         {listArticlesLast}

@@ -16,6 +16,7 @@ export default class Global {
 
 
   urlBase = 'https://master-framewoks-js.herokuapp.com/api/';
+  urlPlaceHolder = 'https://jsonplaceholder.typicode.com/posts';
   articles = 'articles/null/null';
   get_Image = 'get-image/';
 
@@ -219,6 +220,22 @@ export default class Global {
     return null;
 
   }//end function ImagePreview
+
+
+   getPlaceHolder = async function(){
+
+    return new Promise( (resolve) => {
+      
+      axios.get(this.urlPlaceHolder)
+           .then(res =>{
+              resolve(res.data);
+           }).catch(err=>{
+              resolve([]);
+           })
+
+    });
+
+  }
 
 }//end class
 

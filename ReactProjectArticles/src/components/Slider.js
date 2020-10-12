@@ -15,7 +15,13 @@ class Slider extends Component{
 
         <div id="slider" className={claseSilder}>
         <h1>React JS con Luis Esquivel</h1>
-        <Link to="/blog" className="btn-white">Ir al blog</Link>
+          
+          
+        {claseSilder === 'slider-big' ?
+         <Link to="/blog" className="btn-white">Ir al blog</Link>
+        : null
+        }
+
          </div>
 
 

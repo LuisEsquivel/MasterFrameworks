@@ -4,6 +4,7 @@ import Moment from 'react-moment';
 import 'moment/locale/es'
 import { Link } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
+import Slider from '../components/Slider';
 
 export default class Blog extends Component {
 
@@ -56,6 +57,7 @@ export default class Blog extends Component {
         return (
 
             <React.Fragment>
+                 <Slider claseSilder='slider-small'></Slider>
                 <div className="center">
                     <div id="content">
                         {listArticles}

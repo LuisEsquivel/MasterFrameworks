@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import Home from '../components/Home';
-import SideBar from '../components/Sidebar';
 
 
 export default class Busqueda extends Component {

@@ -5,6 +5,8 @@ import Article from '../models/Article';
 import swal from 'sweetalert';
 import Global from '../Global';
 import { Redirect } from 'react-router-dom';
+import Slider from '../components/Slider';
+import Sidebar from '../components/Sidebar';
 
 export default class ArticleNew extends Component {
 
@@ -25,9 +27,6 @@ export default class ArticleNew extends Component {
     art = new Article();
     articleCreate = null;
 
-    //Image Preview
-    _previewImageUrl = null;
-    _eventImageFile = null;
 
     async onSubmit(e) {
 
@@ -66,23 +65,20 @@ export default class ArticleNew extends Component {
 
 
     async eventImage(event) {
-        this.previewImageUrl = null;
-        this._eventImageFile = null;
+
+        this.setState({
+            eventImageFile: null,
+            previewImageUrl: null,
+            firstImage: false
+        })
 
         if (event !== null) {
-
-            this._eventImageFile = event.target.files[0];
             this.setState({
-                eventImageFile: this._eventImageFile
-            })
-
-
-            this._previewImageUrl = await this.g.ImagePreview(event);
-
-            this.setState({
-                previewImageUrl: this._previewImageUrl
-            })
-
+                eventImageFile: event.target.files[0],
+                previewImageUrl: await this.g.ImagePreview(event)
+            });
+        }else{
+            document.getElementById("InputFile").value = '';
         }
 
     }
@@ -97,38 +93,61 @@ export default class ArticleNew extends Component {
         }
 
         return (
-            <div id="new-article">
-                
-                <h1 className="subheader">CREAR ARTICULO</h1>
 
-                <form className="mid-form" onSubmit={e => this.onSubmit(e)}>
+            <React.Fragment>
 
-                    <div className="form-group">
-                        <input type="file" onChange={e => this.eventImage(e)} />
-                        <p onClick={() => this.eventImage(null)}>X</p>
-                        <div className="image-wrap image-all">
-                            <img src={this.state.previewImageUrl} alt="Imagen"></img>
+                <Slider claseSilder='slider-big'></Slider>
+
+                <div className="center">
+                    <div id="content">
+
+
+                        <div id="new-article">
+
+                            <h1 className="subheader">CREAR ARTICULO</h1>
+
+                            <form className="mid-form" onSubmit={e => this.onSubmit(e)}  >
+
+                                <div className="form-group">
+                                    <input type="file" onChange={e => this.eventImage(e)} id='InputFile'/>
+
+                                    {this.state.previewImageUrl !== null ?
+                                        <p onClick={() => this.eventImage(null)}>X</p>
+                                        : null
+                                    }
+
+                                    <div className="image-wrap image-all">
+                                        {this.state.previewImageUrl !== null ?
+                                            <img src={this.state.previewImageUrl} alt="Imagen"></img>
+                                            : null
+                                        }
+                                    </div>
+                                </div>
+
+
+                                <div className="form-group">
+                                    <label htmlFor="title">Título</label>
+                                    <input required type="text" name="title" onChange={e => this.setState({ title: e.target.value })} defaultValue={this.state.title} />
+                                </div>
+
+                                <div className="form-group">
+                                    <label htmlFor="content">Contenido</label>
+                                    <textarea required type="text" name="content" rows="3" onChange={e => this.setState({ content: e.target.value })} value={this.state.content}> </textarea>
+                                </div>
+
+                                <div className="clearfix"></div>
+
+                                <input type="submit" value="Crear" className="btn btn-success" />
+
+                            </form>
+
                         </div>
+
                     </div>
+                    <Sidebar></Sidebar>
+                </div>
 
-
-                    <div className="form-group">
-                        <label htmlFor="title">Título</label>
-                        <input type="text" name="title" onChange={e => this.setState({ title: e.target.value })} defaultValue={this.state.title}/>
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="content">Contenido</label>
-                        <textarea type="text" name="content" rows="3" onChange={e => this.setState({ content: e.target.value })} value={this.state.content}> </textarea>
-                    </div>
-
-                    <div className="clearfix"></div>
-
-                    <input type="submit" value="Crear" className="btn btn-success" />
-
-                </form>
-
-            </div>
+            </React.Fragment>
 
         )
 
