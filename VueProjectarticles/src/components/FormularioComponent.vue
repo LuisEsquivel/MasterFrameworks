@@ -4,7 +4,7 @@
 
 <div>
 
-<SliderComponent></SliderComponent>
+<SliderComponent SliderClass="slider-small"></SliderComponent>
 
   <div class="center">
     <section id="content">
@@ -32,13 +32,13 @@
           <input type="radio" name="genero" value="otro" /> Otro
         </div>
 
-        <div class="clearfix"></div>
-
         <input type="submit" value="Enviar" class="btn btn-success" />
       </form>
     </section>
 
     <SideBarComponent></SideBarComponent>
+
+     <div class="clearfix"></div>
   </div>
 
 

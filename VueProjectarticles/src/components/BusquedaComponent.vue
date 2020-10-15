@@ -1,10 +1,10 @@
 
 
+
+
 <template>
   <div>
-  
-    <SliderComponent :SliderClass="SliderClass" v-if="LastArticles = true"></SliderComponent>
-    <SliderComponent SliderClass="slider-small" v-if="LastArticles = false"></SliderComponent>
+    <SliderComponent SliderClass="slider-small"></SliderComponent>
 
     <div class="center">
       <section id="content">
@@ -33,7 +33,7 @@
 
     <SideBarComponent></SideBarComponent>
 
-    <div class="clearfix"></div>
+    <div class="clear-fix"></div>
   </div>
 </template>
 
@@ -49,20 +49,15 @@ var services = new Services();
 var global = new Global();
 
 export default {
-  name: "ArticlesComponent",
+  name: "BusquedaComponent",
 
   components: {
     SliderComponent,
     SideBarComponent,
   },
 
-  props:
-  {
-    SliderClass: {type: String, default:'slider-big'}
-  },
-
  async mounted(){
-     await this.get();
+     await this.search();
   },
 
   data() { 
@@ -70,21 +65,15 @@ export default {
           articles : [],
           urlImage : global.urlImage,
           extImage : '.jpg',
-          random : global.random(),
+          random : global.random()
       }
   },
 
   methods: {
-   async get() {
-      
-      var res = null;
-      if(this.SliderClass == 'slider-big'){
-        res =await services.get(global.urlBase+global.SuffixArticlesLast);
-      }else{
-        res =await services.get(global.urlBase+global.SuffixArticlesAll);
-      }
-       
-      if(res != null && res != []){
+   async search() {
+      const res = await services.search(global.urlBase+'search/'+this.$route.params.search);
+   
+     if(res){
           if(res.data.status == 'success'){
               this.articles = res.data.articles;
           }else{

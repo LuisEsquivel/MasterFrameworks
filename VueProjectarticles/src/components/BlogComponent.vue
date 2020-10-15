@@ -1,7 +1,7 @@
 
 
 <template>
-   <ArticlesComponent></ArticlesComponent>
+   <ArticlesComponent LastArticles="false" SliderClass="slider-small"></ArticlesComponent>
 </template>
 
 
@@ -15,5 +15,6 @@ export default {
   components: {
     ArticlesComponent,
   },
+
 };
 </script>

@@ -5,7 +5,7 @@
             <div class="center">
                 <!-- LOGO -->
                 <div id="logo">
-                <!--    <img src="../src/assets/images/vue.png" class="app-logo" alt="Logotipo" /> -->
+                <img :src="logo" class="app-logo" alt="Logotipo" /> 
                     <span id="brand">
                         <strong>Curso</strong>Vue
                     </span>
@@ -24,10 +24,10 @@
                             <router-link to="/formulario" active-class="active">Formulario</router-link>
                         </li>
                         <li>
-                            <router-link to="/pelicuals" active-class="active">Péliculas</router-link>
+                            <router-link to="/peliculas" active-class="active">Películas</router-link>
                         </li>
                         <li>
-                            <router-link to="/pagina" active-class="active">Pagina</router-link>
+                            <router-link to="/pagina" active-class="active">Página</router-link>
                         </li>                            
                     </ul>
                 </nav>
@@ -40,7 +40,16 @@
 
 
 <script>
+
+import logo from '../assets/images/logo.png';
+
 export default {
-    name : 'Header'
+    name : 'Header',
+
+    data(){
+        return{
+          logo: logo
+        }
+    }
 }
 </script>

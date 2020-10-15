@@ -1,14 +1,15 @@
 
 
 <template>
-  <div id="slider" class="slider-big">
-    <h1>Bienvenido al Curso de Vue con Víctor Robles de victorroblesweb.es</h1>
-    <a href="#" class="btn-white">Ir al blog</a>
+  <div id="slider" :class="SliderClass">
+    <h1>Vue JS</h1>
+    <router-link to="/blog" class="btn-white" v-if="SliderClass != 'slider-small'">Ir al blog</router-link>
   </div>
 </template>
 
 <script>
 export default {
   name: "SliderComponent",
+  props: ["SliderClass"]
 };
 </script>
